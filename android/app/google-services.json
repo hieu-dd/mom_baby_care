@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1026106768807",
+    "project_id": "mombadycare",
+    "storage_bucket": "mombadycare.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026106768807:android:03eaaa19567c9d48914a82",
+        "android_client_info": {
+          "package_name": "com.bakarot.mombabycare.mom_baby_care"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDde2wX8mcx9Xb2R_vOMBMxnwsgcA1jRA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
