@@ -2,8 +2,8 @@ import 'package:authentication_repository/src/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 class AuthenticationRepository {
-  AuthenticationRepository({required firebase_auth.FirebaseAuth firebaseAuth})
-      : this._firebaseAuth = firebaseAuth;
+  AuthenticationRepository({firebase_auth.FirebaseAuth? firebaseAuth})
+      : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
 
   final firebase_auth.FirebaseAuth _firebaseAuth;
 
@@ -23,8 +23,10 @@ class AuthenticationRepository {
         password: password,
       );
     } on firebase_auth.FirebaseAuthException catch (e) {
-      print(e);
-    } catch (_) {}
+      print("Error $e");
+    } catch (e) {
+      print("Error $e");
+    }
   }
 }
 
