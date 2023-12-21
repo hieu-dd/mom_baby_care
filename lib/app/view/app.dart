@@ -1,6 +1,8 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mom_baby_care/app/bloc/app_bloc.dart';
+import 'package:mom_baby_care/home/view/home_page.dart';
 import 'package:mom_baby_care/login/view/login_page.dart';
 
 class App extends StatelessWidget {
@@ -14,25 +16,25 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: _authenticationRepository,
-      child: const AppView(),
+      child: AppView(repository: _authenticationRepository),
     );
   }
 }
 
 class AppView extends StatelessWidget {
-  const AppView({super.key});
+  const AppView({super.key, required AuthenticationRepository repository})
+      : _authenticationRepository = repository;
+  final AuthenticationRepository _authenticationRepository;
 
   @override
   Widget build(BuildContext context) {
-    final stream = context.read<AuthenticationRepository>().user;
     return MaterialApp(
-      home: StreamBuilder(
-          stream: stream,
-          builder: (context, snapshot) {
-            return snapshot.data?.isNotEmpty == true
-                ? Text("Home")
-                : LoginPage();
-          }),
-    );
+        home: BlocProvider.value(
+      value: AppBloc(repository: _authenticationRepository),
+      child: Builder(builder: (BuildContext context) {
+        final appBloc = context.watch<AppBloc>();
+        return appBloc.state.isAuthorized() ? HomePage() : LoginPage();
+      }),
+    ));
   }
 }

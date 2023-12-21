@@ -13,7 +13,7 @@ class AuthenticationRepository {
     });
   }
 
-  void loginWithUserAndPassword({
+  Future<void> loginWithUserAndPassword({
     required String email,
     required String password,
   }) async {
@@ -27,6 +27,10 @@ class AuthenticationRepository {
     } catch (e) {
       print("Error $e");
     }
+  }
+
+  Future<void> logout() async {
+    _firebaseAuth.signOut();
   }
 }
 
