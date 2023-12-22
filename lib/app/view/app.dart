@@ -2,8 +2,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mom_baby_care/app/bloc/app_bloc.dart';
-import 'package:mom_baby_care/home/view/home_page.dart';
-import 'package:mom_baby_care/login/view/login_page.dart';
+import 'package:mom_baby_care/app/routes/routers.dart';
 
 class App extends StatelessWidget {
   const App(
@@ -28,13 +27,13 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: BlocProvider.value(
+    return BlocProvider.value(
       value: AppBloc(repository: _authenticationRepository),
       child: Builder(builder: (BuildContext context) {
-        final appBloc = context.watch<AppBloc>();
-        return appBloc.state.isAuthorized() ? HomePage() : LoginPage();
+        return MaterialApp.router(
+          routerConfig: appRouter,
+        );
       }),
-    ));
+    );
   }
 }

@@ -13,7 +13,7 @@ class LoginPage extends StatelessWidget {
     return BlocProvider(
       create: (_) =>
           LoginCubit(repository: context.read<AuthenticationRepository>()),
-      child: LoginForm(),
+      child: const LoginForm(),
     );
   }
 }
@@ -28,6 +28,19 @@ class LoginForm extends StatelessWidget {
       return Scaffold(
         body: Column(
           children: [
+            const SizedBox(
+              height: 100,
+            ),
+            SizedBox(
+              width: 150,
+              height: 150,
+              child: ClipOval(
+                child: Image.asset("assets/images/mom_baby_care_logo.jpeg"),
+              ),
+            ),
+            const SizedBox(
+              height: 80,
+            ),
             TextField(
               onChanged: (text) {
                 readCubit.changeEmail(text);
