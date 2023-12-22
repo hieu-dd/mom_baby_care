@@ -24,8 +24,10 @@ class AuthenticationRepository {
       );
     } on firebase_auth.FirebaseAuthException catch (e) {
       print("Error $e");
+      throw e;
     } catch (e) {
       print("Error $e");
+      throw e;
     }
   }
 

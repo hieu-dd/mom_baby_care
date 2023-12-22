@@ -32,6 +32,13 @@ class AppView extends StatelessWidget {
       child: Builder(builder: (BuildContext context) {
         return MaterialApp.router(
           routerConfig: appRouter,
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.green,
+              brightness: Brightness.dark,
+            ),
+          ),
         );
       }),
     );

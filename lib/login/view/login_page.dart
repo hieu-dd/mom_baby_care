@@ -23,44 +23,114 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
-      final readCubit = context.read<LoginCubit>();
-      return Scaffold(
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 100,
+    return BlocListener<LoginCubit, LoginState>(
+      listener: (context, state) {
+        if (state.status == LoginStatus.failure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage ?? 'Authentication Failure'),
             ),
-            SizedBox(
-              width: 150,
-              height: 150,
-              child: ClipOval(
-                child: Image.asset("assets/images/mom_baby_care_logo.jpeg"),
-              ),
+          );
+        }
+      },
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 100,
+                ),
+                SizedBox(
+                  width: 150,
+                  height: 150,
+                  child: ClipOval(
+                    child: Image.asset("assets/images/mom_baby_care_logo.jpeg"),
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                const _EmailForm(),
+                const SizedBox(
+                  height: 12,
+                ),
+                const _PasswordForm(),
+                const SizedBox(
+                  height: 50,
+                ),
+                const _LoginButton(),
+              ],
             ),
-            const SizedBox(
-              height: 80,
-            ),
-            TextField(
-              onChanged: (text) {
-                readCubit.changeEmail(text);
-              },
-            ),
-            TextField(
-              onChanged: (text) {
-                readCubit.changePassword(text);
-              },
-            ),
-            ElevatedButton(
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _EmailForm extends StatelessWidget {
+  const _EmailForm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginCubit, LoginState>(
+        buildWhen: (previous, current) => previous.email != current.email,
+        builder: (context, state) {
+          return TextField(
+            onChanged: (text) {
+              context.read<LoginCubit>().changeEmail(text);
+            },
+            decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                label: const Text("Email"),
+                errorText: state.email.isEmpty ? "Invalid email" : null),
+          );
+        });
+  }
+}
+
+class _PasswordForm extends StatelessWidget {
+  const _PasswordForm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginCubit, LoginState>(
+        buildWhen: (previous, current) => previous.password != current.password,
+        builder: (context, state) {
+          return TextField(
+            onChanged: (text) {
+              context.read<LoginCubit>().changePassword(text);
+            },
+            decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                label: const Text("Password"),
+                errorText: state.password.isEmpty ? "Invalid password" : null),
+          );
+        });
+  }
+}
+
+class _LoginButton extends StatelessWidget {
+  const _LoginButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginCubit, LoginState>(
+        buildWhen: (previous, current) => previous.isValid != current.isValid,
+        builder: (context, state) {
+          return SizedBox(
+            width: double.infinity,
+            height: 50,
+            child: ElevatedButton(
                 onPressed: state.isValid
                     ? () {
-                        readCubit.logInWithCredentials();
+                        context.read<LoginCubit>().logInWithCredentials();
                       }
                     : null,
-                child: Text("Login")),
-          ],
-        ),
-      );
-    });
+                child: Text('Login'.toUpperCase())),
+          );
+        });
   }
 }
