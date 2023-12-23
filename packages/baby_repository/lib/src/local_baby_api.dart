@@ -54,11 +54,13 @@ class LocalBabyApi extends BabyApi {
   Baby _getCurrentBaby() {
     try {
       return _babyStreamController.stream.value;
-    } on ValueStreamError catch (_) {
-      final babyJson = jsonDecode(_sharedPreferences.getString(_babyKey)!);
-      return Baby.fromJson(babyJson);
     } catch (_) {
-      return Baby.empty();
+      try {
+        final babyJson = jsonDecode(_sharedPreferences.getString(_babyKey)!);
+        return Baby.fromJson(babyJson);
+      } catch (_) {
+        return Baby.empty();
+      }
     }
   }
 
