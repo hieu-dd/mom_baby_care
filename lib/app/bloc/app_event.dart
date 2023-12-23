@@ -13,3 +13,9 @@ final class _AppUserChanged extends AppEvent {
 
   final User user;
 }
+
+final class _AppBabyChanged extends AppEvent {
+  const _AppBabyChanged(this.baby);
+
+  final Baby baby;
+}

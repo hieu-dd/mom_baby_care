@@ -50,7 +50,7 @@ class _BabyView extends StatelessWidget {
     final babyRepository = context.read<BabyRepository>();
 
     return StreamBuilder(
-        stream: babyRepository.getBaby(),
+        stream: babyRepository.streamBaby(),
         builder: (context, snapshot) {
           return !snapshot.hasData
               ? Text("Null")

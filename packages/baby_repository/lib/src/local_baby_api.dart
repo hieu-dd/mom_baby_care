@@ -8,14 +8,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LocalBabyApi extends BabyApi {
   LocalBabyApi({required SharedPreferences preferences})
       : _sharedPreferences = preferences {
-    _babyStreamController.sink.add(_getCurrentBaby());
+    _babyStreamController.sink.add(getBaby());
   }
 
   final _babyStreamController = BehaviorSubject<Baby>();
   final SharedPreferences _sharedPreferences;
 
   @override
-  Stream<Baby> getBaby() => _babyStreamController.stream;
+  Stream<Baby> streamBaby() => _babyStreamController.stream;
 
   @override
   Future<void> saveBaby(Baby baby) async {
@@ -25,19 +25,19 @@ class LocalBabyApi extends BabyApi {
 
   @override
   Future<void> updateBirthDay(DateTime birthDay) async {
-    final newBaby = _getCurrentBaby().copyWith(newBirthDay: birthDay);
+    final newBaby = getBaby().copyWith(newBirthDay: birthDay);
     await _saveBabyToSharedPreference(newBaby);
   }
 
   @override
   Future<void> updateName(String name) async {
-    final newBaby = _getCurrentBaby().copyWith(newName: name);
+    final newBaby = getBaby().copyWith(newName: name);
     await _saveBabyToSharedPreference(newBaby);
   }
 
   @override
   Future<void> updateNickname(String nickName) async {
-    final newBaby = _getCurrentBaby().copyWith(newNickname: nickName);
+    final newBaby = getBaby().copyWith(newNickname: nickName);
     await _saveBabyToSharedPreference(newBaby);
   }
 
@@ -51,7 +51,8 @@ class LocalBabyApi extends BabyApi {
     }
   }
 
-  Baby _getCurrentBaby() {
+  @override
+  Baby getBaby() {
     try {
       return _babyStreamController.stream.value;
     } catch (_) {

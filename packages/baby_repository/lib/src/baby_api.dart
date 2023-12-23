@@ -1,7 +1,9 @@
 import 'models/baby.dart';
 
 abstract class BabyApi {
-  Stream<Baby> getBaby();
+  Stream<Baby> streamBaby();
+
+  Baby getBaby();
 
   Future<void> saveBaby(Baby baby);
 

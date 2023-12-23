@@ -25,20 +25,29 @@ class App extends StatelessWidget {
               create: (_) => _authenticationRepository),
         ],
         child: AppView(
-          repository: _authenticationRepository,
+          authenticationRepository: _authenticationRepository,
+          babyRepository: _babyRepository,
         ));
   }
 }
 
 class AppView extends StatelessWidget {
-  const AppView({super.key, required AuthenticationRepository repository})
-      : _authenticationRepository = repository;
+  const AppView({
+    super.key,
+    required AuthenticationRepository authenticationRepository,
+    required BabyRepository babyRepository,
+  })  : _authenticationRepository = authenticationRepository,
+        _babyRepository = babyRepository;
   final AuthenticationRepository _authenticationRepository;
+  final BabyRepository _babyRepository;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: AppBloc(repository: _authenticationRepository),
+      value: AppBloc(
+        authenticationRepository: _authenticationRepository,
+        babyRepository: _babyRepository,
+      ),
       child: Builder(builder: (BuildContext context) {
         return MaterialApp.router(
           routerConfig: appRouter,

@@ -11,8 +11,9 @@ class Baby extends Equatable {
     this.sizes = const [],
   });
 
-  static Baby empty() => Baby(name: "", birthDay: DateTime.now());
+  static Baby empty() => Baby(name: '', birthDay: DateTime.now());
 
+  bool get isEmpty => name == '';
   final String name;
   final String? nickname;
   final DateTime birthDay;
