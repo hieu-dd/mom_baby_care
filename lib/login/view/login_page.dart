@@ -1,6 +1,7 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mom_baby_care/consts/consts.dart';
 import 'package:mom_baby_care/login/cubit/login_cubit.dart';
 
 class LoginPage extends StatelessWidget {
@@ -46,7 +47,7 @@ class LoginForm extends StatelessWidget {
                   width: 150,
                   height: 150,
                   child: ClipOval(
-                    child: Image.asset("assets/images/mom_baby_care_logo.jpeg"),
+                    child: Image.asset(AssetsImage.logo),
                   ),
                 ),
                 const SizedBox(
@@ -71,7 +72,7 @@ class LoginForm extends StatelessWidget {
 }
 
 class _EmailForm extends StatelessWidget {
-  const _EmailForm({super.key});
+  const _EmailForm();
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +93,7 @@ class _EmailForm extends StatelessWidget {
 }
 
 class _PasswordForm extends StatelessWidget {
-  const _PasswordForm({super.key});
+  const _PasswordForm();
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +114,7 @@ class _PasswordForm extends StatelessWidget {
 }
 
 class _LoginButton extends StatelessWidget {
-  const _LoginButton({super.key});
+  const _LoginButton();
 
   @override
   Widget build(BuildContext context) {

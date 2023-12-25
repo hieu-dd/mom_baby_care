@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
             InkWell(
               child: Text("Update Baby"),
               onTap: () {
-                context.read<BabyRepository>().updateName('new  name');
+                context.read<BabyRepository>().updateName('');
               },
             ),
           ],
@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
 }
 
 class _BabyView extends StatelessWidget {
-  const _BabyView({super.key});
+  const _BabyView();
 
   @override
   Widget build(BuildContext context) {
