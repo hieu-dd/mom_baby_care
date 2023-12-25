@@ -1,6 +1,7 @@
 import 'package:baby_repository/baby_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mom_baby_care/common/view/border.dart';
 import 'package:mom_baby_care/common/view/text_field_date_time.dart';
 import 'package:mom_baby_care/common/view/text_field_gender.dart';
 import 'package:mom_baby_care/consts/consts.dart';
@@ -72,7 +73,7 @@ class _NameInput extends StatelessWidget {
             },
             decoration: const InputDecoration(
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(25)),
+                borderRadius: AppBorderRadius.medium,
               ),
               label: Text("Name"),
             ),
@@ -96,7 +97,7 @@ class _NickNameInput extends StatelessWidget {
             },
             decoration: const InputDecoration(
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(25)),
+                borderRadius: AppBorderRadius.medium,
               ),
               label: Text("Nick name"),
             ),

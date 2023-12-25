@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'border.dart';
+
 class TextFieldDateTime extends StatefulWidget {
   const TextFieldDateTime({
     required this.selectDate,
@@ -41,7 +43,7 @@ class _TextFieldDateTimeState extends State<TextFieldDateTime> {
       readOnly: true,
       decoration: InputDecoration(
         border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25)),
+          borderRadius: AppBorderRadius.medium,
         ),
         label: Text(widget.label),
       ),

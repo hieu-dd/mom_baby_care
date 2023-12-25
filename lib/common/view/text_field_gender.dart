@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'border.dart';
+
 class TextFieldGender extends StatefulWidget {
   const TextFieldGender({
     required this.select,
@@ -43,7 +45,7 @@ class _TextFieldGenderState extends State<TextFieldGender> {
       }).toList(),
       decoration: InputDecoration(
         border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25)),
+          borderRadius: AppBorderRadius.medium,
         ),
         label: Text(widget.label),
       ),

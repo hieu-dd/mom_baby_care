@@ -61,7 +61,7 @@ class AppView extends StatelessWidget {
             theme: ThemeData(
               useMaterial3: true,
               colorScheme: ColorScheme.fromSeed(
-                seedColor: Colors.green,
+                seedColor: Colors.pink,
                 brightness: Brightness.dark,
               ),
             ),

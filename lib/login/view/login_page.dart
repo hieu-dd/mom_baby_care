@@ -1,6 +1,7 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mom_baby_care/common/view/border.dart';
 import 'package:mom_baby_care/consts/consts.dart';
 import 'package:mom_baby_care/login/cubit/login_cubit.dart';
 
@@ -84,7 +85,9 @@ class _EmailForm extends StatelessWidget {
               context.read<LoginCubit>().changeEmail(text);
             },
             decoration: InputDecoration(
-                border: const OutlineInputBorder(),
+                border: const OutlineInputBorder(
+                  borderRadius: AppBorderRadius.medium,
+                ),
                 label: const Text("Email"),
                 errorText: state.email.isEmpty ? "Invalid email" : null),
           );
@@ -105,7 +108,9 @@ class _PasswordForm extends StatelessWidget {
               context.read<LoginCubit>().changePassword(text);
             },
             decoration: InputDecoration(
-                border: const OutlineInputBorder(),
+                border: const OutlineInputBorder(
+                  borderRadius: AppBorderRadius.medium,
+                ),
                 label: const Text("Password"),
                 errorText: state.password.isEmpty ? "Invalid password" : null),
           );
