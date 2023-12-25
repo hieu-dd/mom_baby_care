@@ -53,6 +53,12 @@ flutter:
     - assets/images/mom_baby_care_logo.png
     - assets/images/mom_baby_care_logo.jpeg
     - assets/images/baby_avatar.png
+    - assets/images/ic_weight.png
+    - assets/images/ic_calendar.png
+    - assets/images/ic_calendar2.png
+    - assets/images/ic_note.png
+    - assets/images/ic_shop.png
+    - assets/images/ic_photo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

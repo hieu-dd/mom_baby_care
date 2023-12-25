@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mom_baby_care/app/bloc/app_bloc.dart';
+import 'package:mom_baby_care/baby/view/baby_page.dart';
 import 'package:mom_baby_care/create_baby/create_baby.dart';
-import 'package:mom_baby_care/home/home.dart';
 import 'package:mom_baby_care/login/login.dart';
 
 GoRouter appRouter = GoRouter(
@@ -15,7 +15,7 @@ GoRouter appRouter = GoRouter(
         return appBloc.state.isUnAuthorized()
             ? const LoginPage()
             : appBloc.state.hasBaby()
-                ? const HomePage()
+                ? const BabyPage()
                 : const CreateBabyPage();
       },
     ),
