@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mom_baby_care/app/bloc/app_bloc.dart';
 import 'package:mom_baby_care/app/routes/routers.dart';
 import 'package:mom_baby_care/baby/cubit/baby_cubit.dart';
+import 'package:mom_baby_care/baby_size/cubit/baby_size_cubit.dart';
 import 'package:mom_baby_care/create_baby/cubit/create_baby_cubit.dart';
 
 class App extends StatelessWidget {
@@ -58,6 +59,9 @@ class AppView extends StatelessWidget {
           ),
           BlocProvider(
               create: (_) => BabyCubit(babyRepository: _babyRepository)),
+          BlocProvider(
+            create: (_) => BabySizeCubit(babyRepository: _babyRepository),
+          )
         ],
         child: Builder(builder: (BuildContext context) {
           return MaterialApp.router(

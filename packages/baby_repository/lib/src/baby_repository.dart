@@ -1,4 +1,5 @@
 import 'package:baby_repository/src/baby_api.dart';
+import 'package:baby_repository/src/models/baby_size.dart';
 
 import 'models/baby.dart';
 
@@ -19,4 +20,6 @@ class BabyRepository {
 
   Future<void> updateBirthDay(DateTime birthDay) =>
       _babyApi.updateBirthDay(birthDay);
+
+  Future<void> addSize(BabySize size) => _babyApi.addSize(size);
 }

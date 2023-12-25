@@ -56,7 +56,7 @@ class Baby extends Equatable {
       name: newName ?? name,
       nickname: newNickname ?? nickname,
       birthDay: newBirthDay ?? birthDay,
-      sizes: List.from(newSizes ?? sizes),
+      sizes: [...sizes, ...?newSizes].toSet().toList(),
     );
   }
 

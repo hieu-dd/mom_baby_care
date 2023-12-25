@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:baby_repository/src/baby_api.dart';
 import 'package:baby_repository/src/models/baby.dart';
+import 'package:baby_repository/src/models/baby_size.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,6 +39,12 @@ class LocalBabyApi extends BabyApi {
   @override
   Future<void> updateNickname(String nickName) async {
     final newBaby = getBaby().copyWith(newNickname: nickName);
+    await _saveBabyToSharedPreference(newBaby);
+  }
+
+  @override
+  Future<void> addSize(BabySize size) async {
+    final newBaby = getBaby().copyWith(newSizes: [size]);
     await _saveBabyToSharedPreference(newBaby);
   }
 

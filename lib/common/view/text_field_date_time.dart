@@ -7,11 +7,13 @@ class TextFieldDateTime extends StatefulWidget {
   const TextFieldDateTime({
     required this.selectDate,
     required this.label,
+    InputBorder? inputBorder,
     super.key,
-  });
+  }) : _border = inputBorder;
 
   final Function selectDate;
   final String label;
+  final InputBorder? _border;
 
   @override
   State<TextFieldDateTime> createState() => _TextFieldDateTimeState();
@@ -42,9 +44,10 @@ class _TextFieldDateTimeState extends State<TextFieldDateTime> {
       controller: _controller,
       readOnly: true,
       decoration: InputDecoration(
-        border: const OutlineInputBorder(
-          borderRadius: AppBorderRadius.medium,
-        ),
+        border: widget._border ??
+            const OutlineInputBorder(
+              borderRadius: AppBorderRadius.medium,
+            ),
         label: Text(widget.label),
       ),
       onTap: () {

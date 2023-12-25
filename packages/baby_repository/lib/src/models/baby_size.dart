@@ -33,5 +33,5 @@ class BabySize extends Equatable {
   }
 
   @override
-  List<Object> get props => [height, weight, headSize];
+  List<Object> get props => [height, weight, headSize, time];
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mom_baby_care/baby/cubit/baby_cubit.dart';
 import 'package:mom_baby_care/baby/cubit/baby_state.dart';
+import 'package:mom_baby_care/baby_size/baby_size.dart';
 import 'package:mom_baby_care/common/view/border.dart';
 import 'package:mom_baby_care/consts/consts.dart';
 import 'package:mom_baby_care/utils/date_time.dart';
@@ -47,7 +49,7 @@ class BabyPage extends StatelessWidget {
 }
 
 class _BabyName extends StatelessWidget {
-  const _BabyName({super.key});
+  const _BabyName();
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +91,7 @@ class _BabyName extends StatelessWidget {
 }
 
 class _BabyAge extends StatelessWidget {
-  const _BabyAge({super.key});
+  const _BabyAge();
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +133,7 @@ class _BabyAge extends StatelessWidget {
 }
 
 class _BabySettings extends StatelessWidget {
-  const _BabySettings({super.key});
+  const _BabySettings();
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +158,9 @@ class _BabySettings extends StatelessWidget {
                 context,
                 label: 'Số đo con yêu',
                 image: AssetsImage.icWeight,
-                onTap: () {},
+                onTap: () {
+                  context.go('/${BabySizePage.route}');
+                },
               ),
             ],
           ),

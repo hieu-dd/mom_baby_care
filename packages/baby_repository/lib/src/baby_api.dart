@@ -1,3 +1,5 @@
+import 'package:baby_repository/src/models/baby_size.dart';
+
 import 'models/baby.dart';
 
 abstract class BabyApi {
@@ -12,4 +14,6 @@ abstract class BabyApi {
   Future<void> updateNickname(String nickName);
 
   Future<void> updateBirthDay(DateTime birthDay);
+
+  Future<void> addSize(BabySize size);
 }

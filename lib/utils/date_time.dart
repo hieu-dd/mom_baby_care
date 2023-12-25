@@ -35,4 +35,19 @@ extension DateTimeEx on DateTime {
 
     return {'years': years, 'months': months, 'days': days};
   }
+
+  String calculateTimeDifferenceInString(DateTime pastDate) {
+    final different = calculateTimeDifference(pastDate);
+    String result = '';
+    if (different['years']! > 0) {
+      result += '${different['years']} năm';
+    }
+    if (different['months']! > 0) {
+      result += ' ${different['months']} tháng';
+    }
+    if (different['days']! > 0) {
+      result += ' ${different['days']} ngày';
+    }
+    return result.trim();
+  }
 }
