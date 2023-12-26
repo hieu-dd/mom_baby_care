@@ -19,7 +19,7 @@ class BabySize extends Equatable {
       height: json['height'] as double,
       weight: json['weight'] as double,
       headSize: json['headSize'] as double,
-      time: DateFormat('yyyy-MM-dd').parse(json['birthDay'] as String),
+      time: DateFormat('yyyy-MM-dd').parse(json['time'] as String),
     );
   }
 

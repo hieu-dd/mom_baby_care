@@ -12,11 +12,11 @@ class BabySizeCubit extends Cubit<BabySizeState> {
   }
 
   void changeHeight(double? height) {
-    emit(state.copyWith(newWeight: height));
+    emit(state.copyWith(newHeight: height));
   }
 
   void changeWeight(double? weight) {
-    emit(state.copyWith(newHeight: weight));
+    emit(state.copyWith(newWeight: weight));
   }
 
   void changeHeadSize(double? headSize) {

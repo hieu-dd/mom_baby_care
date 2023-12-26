@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LocalBabyApi extends BabyApi {
   LocalBabyApi({required SharedPreferences preferences})
       : _sharedPreferences = preferences {
-    _babyStreamController.sink.add(getBaby());
+    _babyStreamController.sink.add(_getBaby(preferences));
   }
 
   final _babyStreamController = BehaviorSubject<Baby>();
@@ -60,13 +60,17 @@ class LocalBabyApi extends BabyApi {
 
   @override
   Baby getBaby() {
+    return _getBaby(_sharedPreferences);
+  }
+
+  Baby _getBaby(SharedPreferences sharedPreferences) {
     try {
       return _babyStreamController.stream.value;
-    } catch (_) {
+    } catch (e) {
       try {
-        final babyJson = jsonDecode(_sharedPreferences.getString(_babyKey)!);
+        final babyJson = jsonDecode(sharedPreferences.getString(_babyKey)!);
         return Baby.fromJson(babyJson);
-      } catch (_) {
+      } catch (e) {
         return Baby.empty();
       }
     }

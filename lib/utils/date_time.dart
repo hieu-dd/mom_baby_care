@@ -48,6 +48,6 @@ extension DateTimeEx on DateTime {
     if (different['days']! > 0) {
       result += ' ${different['days']} ngày';
     }
-    return result.trim();
+    return result.isNotEmpty ? result.trim() : '0 ngày';
   }
 }

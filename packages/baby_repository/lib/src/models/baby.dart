@@ -61,5 +61,5 @@ class Baby extends Equatable {
   }
 
   @override
-  List<Object?> get props => [name, nickname, birthDay, gender];
+  List<Object?> get props => [name, nickname, birthDay, gender, sizes];
 }

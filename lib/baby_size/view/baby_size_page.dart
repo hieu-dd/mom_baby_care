@@ -1,4 +1,4 @@
-import 'package:baby_repository/baby_repository.dart';
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mom_baby_care/baby_size/cubit/baby_size_cubit.dart';
@@ -19,17 +19,28 @@ class BabySizePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Số đo con yêu'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: [
-              ...cubit.state.baby.sizes.map((e) => _BabySizeItem(
-                    size: e,
-                    baby: cubit.state.baby,
-                  ))
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          children: [
+            Expanded(
+              child:
+                  DataTable2(columnSpacing: 12, horizontalMargin: 12, columns: [
+                _tableSizeTitle('Chiều cao'),
+                _tableSizeTitle('Cân nặng'),
+                _tableSizeTitle('Vòng đầu'),
+                _tableSizeTitle('Thòi điểm'),
+              ], rows: [
+                ...cubit.state.baby.sizes.map((size) => DataRow(cells: [
+                      _tableSizeCell(size.height),
+                      _tableSizeCell(size.weight),
+                      _tableSizeCell(size.headSize),
+                      _tableSizeCell(size.time.calculateTimeDifferenceInString(
+                          cubit.state.baby.birthDay)),
+                    ])),
+              ]),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton.large(
@@ -40,27 +51,20 @@ class BabySizePage extends StatelessWidget {
       ),
     );
   }
-}
 
-class _BabySizeItem extends StatelessWidget {
-  const _BabySizeItem({required BabySize size, required Baby baby})
-      : _size = size,
-        _baby = baby;
-
-  final BabySize _size;
-  final Baby _baby;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-          'Chiều cao: ${_size.height} cm\nCân nặng: ${_size.weight} kg\nVòng đầu: ${_size.headSize}'),
-      subtitle:
-          Text(_size.time.calculateTimeDifferenceInString(_baby.birthDay)),
-      trailing: IconButton(
-        onPressed: () {},
-        icon: const Icon(Icons.delete),
+  DataColumn2 _tableSizeTitle(String label) {
+    return DataColumn2(
+      label: Text(
+        label,
+        maxLines: 2,
       ),
+      size: ColumnSize.S,
     );
+  }
+
+  DataCell _tableSizeCell(dynamic value) {
+    return DataCell(Text(
+      value.toString(),
+    ));
   }
 }
