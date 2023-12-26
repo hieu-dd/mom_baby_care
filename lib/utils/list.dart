@@ -5,4 +5,9 @@ extension Unique<E, Id> on List<E> {
     list.retainWhere((x) => ids.add(id != null ? id(x) : x as Id));
     return list;
   }
+
+  List<E> sortedBy(bool Function(E a, E b) compare) {
+    final result = [...this];
+    return result..sort((a, b) => compare(a, b) ? 1 : 0);
+  }
 }

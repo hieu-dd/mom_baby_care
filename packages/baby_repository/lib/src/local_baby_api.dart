@@ -44,7 +44,16 @@ class LocalBabyApi extends BabyApi {
 
   @override
   Future<void> addSize(BabySize size) async {
-    final newBaby = getBaby().copyWith(newSizes: [size]);
+    final newBaby = getBaby().copyWith(addSizes: [size]);
+    await _saveBabyToSharedPreference(newBaby);
+  }
+
+  @override
+  Future<void> deleteSize(String id) async {
+    final currentBaby = getBaby();
+    final newSizes = [...currentBaby.sizes]
+      ..removeWhere((element) => element.id == id);
+    final newBaby = currentBaby.copyWith(sizes: newSizes);
     await _saveBabyToSharedPreference(newBaby);
   }
 

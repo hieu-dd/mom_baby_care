@@ -16,4 +16,6 @@ abstract class BabyApi {
   Future<void> updateBirthDay(DateTime birthDay);
 
   Future<void> addSize(BabySize size);
+
+  Future<void> deleteSize(String id);
 }

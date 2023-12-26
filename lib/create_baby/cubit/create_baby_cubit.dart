@@ -1,6 +1,7 @@
 import 'package:baby_repository/baby_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:mom_baby_care/create_baby/cubit/create_baby_state.dart';
+import 'package:uuid/uuid.dart';
 
 class CreateBabyCubit extends Cubit<CreateBabState> {
   CreateBabyCubit({required BabyRepository babyRepository})
@@ -28,6 +29,7 @@ class CreateBabyCubit extends Cubit<CreateBabState> {
   Future<void> createBaby() async {
     if (!state.isValid) return;
     _babyRepository.saveBaby(Baby(
+      id: const Uuid().v1().toString(),
       name: state.name,
       nickname: state.nickname,
       birthDay: state.birthday!,

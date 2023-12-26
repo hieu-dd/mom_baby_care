@@ -34,7 +34,7 @@ class BabySizeState extends Equatable {
     return BabySizeState(
       baby: baby ?? this.baby,
       newHeadSize: newHeadSize ?? this.newHeadSize,
-      newHeight: newHeight ?? this.newWeight,
+      newHeight: newHeight ?? this.newHeight,
       newWeight: newWeight ?? this.newWeight,
       dateTime: dateTime ?? this.dateTime,
     );

@@ -7,6 +7,7 @@ enum Gender { male, female, other }
 
 class Baby extends Equatable {
   const Baby({
+    required this.id,
     required this.name,
     this.nickname,
     required this.birthDay,
@@ -14,9 +15,10 @@ class Baby extends Equatable {
     this.gender = Gender.other,
   });
 
-  static Baby empty() => Baby(name: '', birthDay: DateTime.now());
+  static Baby empty() => Baby(id: '', name: '', birthDay: DateTime.now());
 
   bool get isEmpty => name == '';
+  final String id;
   final String name;
   final String? nickname;
   final DateTime birthDay;
@@ -25,6 +27,7 @@ class Baby extends Equatable {
 
   factory Baby.fromJson(Map<String, dynamic> json) {
     return Baby(
+      id: json['id'] as String,
       name: json['name'] as String,
       nickname: json['nickname'] as String?,
       birthDay: DateFormat('yyyy-MM-dd').parse(json['birthDay'] as String),
@@ -38,6 +41,7 @@ class Baby extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'nickname': nickname,
       'birthDay': DateFormat('yyyy-MM-dd').format(birthDay),
@@ -50,16 +54,18 @@ class Baby extends Equatable {
     String? newName,
     String? newNickname,
     DateTime? newBirthDay,
-    List<BabySize>? newSizes,
+    List<BabySize>? addSizes,
+    List<BabySize>? sizes,
   }) {
     return Baby(
+      id: id,
       name: newName ?? name,
       nickname: newNickname ?? nickname,
       birthDay: newBirthDay ?? birthDay,
-      sizes: [...sizes, ...?newSizes].toSet().toList(),
+      sizes: (sizes ?? [...this.sizes, ...?addSizes]).toSet().toList(),
     );
   }
 
   @override
-  List<Object?> get props => [name, nickname, birthDay, gender, sizes];
+  List<Object?> get props => [id, name, nickname, birthDay, gender, sizes];
 }

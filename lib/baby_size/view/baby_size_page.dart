@@ -2,8 +2,10 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mom_baby_care/baby_size/cubit/baby_size_cubit.dart';
+import 'package:mom_baby_care/baby_size/cubit/baby_size_state.dart';
 import 'package:mom_baby_care/common/view/text_field_date_time.dart';
 import 'package:mom_baby_care/utils/date_time.dart';
+import 'package:mom_baby_care/utils/list.dart';
 
 part 'add_baby_size_alert.dart';
 
@@ -14,31 +16,16 @@ class BabySizePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.watch<BabySizeCubit>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Số đo con yêu'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      body: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
             Expanded(
-              child:
-                  DataTable2(columnSpacing: 12, horizontalMargin: 12, columns: [
-                _tableSizeTitle('Chiều cao'),
-                _tableSizeTitle('Cân nặng'),
-                _tableSizeTitle('Vòng đầu'),
-                _tableSizeTitle('Thòi điểm'),
-              ], rows: [
-                ...cubit.state.baby.sizes.map((size) => DataRow(cells: [
-                      _tableSizeCell(size.height),
-                      _tableSizeCell(size.weight),
-                      _tableSizeCell(size.headSize),
-                      _tableSizeCell(size.time.calculateTimeDifferenceInString(
-                          cubit.state.baby.birthDay)),
-                    ])),
-              ]),
+              child: _TableSize(),
             ),
           ],
         ),
@@ -51,6 +38,43 @@ class BabySizePage extends StatelessWidget {
       ),
     );
   }
+}
+
+class _TableSize extends StatelessWidget {
+  const _TableSize();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<BabySizeCubit, BabySizeState>(
+      builder: (context, state) {
+        return DataTable2(columnSpacing: 12, horizontalMargin: 12, columns: [
+          _tableSizeTitle('Chiều cao'),
+          _tableSizeTitle('Cân nặng'),
+          _tableSizeTitle('Vòng đầu'),
+          _tableSizeTitle('Thòi điểm'),
+          const DataColumn2(label: Text(''), size: ColumnSize.S),
+        ], rows: [
+          ...state.baby.sizes
+              .sortedBy((a, b) => a.time.isBefore(b.time))
+              .map((size) => DataRow(cells: [
+                    _tableSizeCell(size.height),
+                    _tableSizeCell(size.weight),
+                    _tableSizeCell(size.headSize),
+                    _tableSizeCell(
+                      size.time
+                          .calculateTimeDifferenceInString(state.baby.birthDay),
+                    ),
+                    DataCell(IconButton(
+                      onPressed: () {
+                        context.read<BabySizeCubit>().deleteSize(size.id);
+                      },
+                      icon: const Icon(Icons.delete),
+                    )),
+                  ])),
+        ]);
+      },
+    );
+  }
 
   DataColumn2 _tableSizeTitle(String label) {
     return DataColumn2(
@@ -58,7 +82,7 @@ class BabySizePage extends StatelessWidget {
         label,
         maxLines: 2,
       ),
-      size: ColumnSize.S,
+      size: ColumnSize.L,
     );
   }
 

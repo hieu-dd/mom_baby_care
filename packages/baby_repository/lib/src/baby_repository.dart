@@ -22,4 +22,6 @@ class BabyRepository {
       _babyApi.updateBirthDay(birthDay);
 
   Future<void> addSize(BabySize size) => _babyApi.addSize(size);
+
+  Future<void> deleteSize(String id) => _babyApi.deleteSize(id);
 }

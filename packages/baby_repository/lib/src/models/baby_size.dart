@@ -3,12 +3,14 @@ import 'package:intl/intl.dart';
 
 class BabySize extends Equatable {
   BabySize({
+    required this.id,
     required this.headSize,
     required this.height,
     required this.weight,
     DateTime? time,
   }) : time = time ?? DateTime.now();
 
+  final String id;
   final double height;
   final double weight;
   final double headSize;
@@ -16,6 +18,7 @@ class BabySize extends Equatable {
 
   factory BabySize.fromJson(Map<String, dynamic> json) {
     return BabySize(
+      id: json['id'] as String,
       height: json['height'] as double,
       weight: json['weight'] as double,
       headSize: json['headSize'] as double,
@@ -25,6 +28,7 @@ class BabySize extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'height': height,
       'weight': weight,
       'headSize': headSize,
@@ -33,5 +37,5 @@ class BabySize extends Equatable {
   }
 
   @override
-  List<Object> get props => [height, weight, headSize, time];
+  List<Object> get props => [id, height, weight, headSize, time];
 }

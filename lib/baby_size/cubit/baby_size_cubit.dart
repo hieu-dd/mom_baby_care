@@ -1,6 +1,7 @@
 import 'package:baby_repository/baby_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:mom_baby_care/baby_size/cubit/baby_size_state.dart';
+import 'package:uuid/uuid.dart';
 
 class BabySizeCubit extends Cubit<BabySizeState> {
   BabySizeCubit({required BabyRepository babyRepository})
@@ -27,9 +28,14 @@ class BabySizeCubit extends Cubit<BabySizeState> {
     emit(state.copyWith(dateTime: dateTime));
   }
 
+  void deleteSize(String id) {
+    _babyRepository.deleteSize(id);
+  }
+
   Future<void> saveSize() async {
     if (!state.isValid()) return;
     _babyRepository.addSize(BabySize(
+      id: const Uuid().v1().toString(),
       height: state.newHeight!,
       weight: state.newWeight!,
       headSize: state.newHeadSize!,
