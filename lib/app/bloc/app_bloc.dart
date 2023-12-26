@@ -33,9 +33,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     unawaited(_authenticationRepository.logout());
   }
 
-  void _onUserChanged(_AppUserChanged event, Emitter<AppState> emit) {
+  Future<void> _onUserChanged(
+      _AppUserChanged event, Emitter<AppState> emit) async {
     if (event.user.isNotEmpty) {
-      final baby = _babyRepository.getBaby();
+      final baby = await _babyRepository.getBaby();
       emit(AppState.authorized(user: event.user, baby: baby));
     } else {
       emit(AppState.unauthorized());

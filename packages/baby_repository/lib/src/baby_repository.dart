@@ -7,7 +7,7 @@ class BabyRepository {
   BabyRepository({required BabyApi babyApi}) : _babyApi = babyApi;
   final BabyApi _babyApi;
 
-  Baby getBaby() => _babyApi.getBaby();
+  Future<Baby> getBaby() => _babyApi.getBaby();
 
   Stream<Baby> streamBaby() => _babyApi.streamBaby();
 

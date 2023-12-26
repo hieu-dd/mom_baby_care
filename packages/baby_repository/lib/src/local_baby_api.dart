@@ -26,31 +26,33 @@ class LocalBabyApi extends BabyApi {
 
   @override
   Future<void> updateBirthDay(DateTime birthDay) async {
-    final newBaby = getBaby().copyWith(newBirthDay: birthDay);
+    final newBaby =
+        _getBaby(_sharedPreferences).copyWith(newBirthDay: birthDay);
     await _saveBabyToSharedPreference(newBaby);
   }
 
   @override
   Future<void> updateName(String name) async {
-    final newBaby = getBaby().copyWith(newName: name);
+    final newBaby = _getBaby(_sharedPreferences)..copyWith(newName: name);
     await _saveBabyToSharedPreference(newBaby);
   }
 
   @override
   Future<void> updateNickname(String nickName) async {
-    final newBaby = getBaby().copyWith(newNickname: nickName);
+    final newBaby =
+        _getBaby(_sharedPreferences).copyWith(newNickname: nickName);
     await _saveBabyToSharedPreference(newBaby);
   }
 
   @override
   Future<void> addSize(BabySize size) async {
-    final newBaby = getBaby().copyWith(addSizes: [size]);
+    final newBaby = _getBaby(_sharedPreferences).copyWith(addSizes: [size]);
     await _saveBabyToSharedPreference(newBaby);
   }
 
   @override
   Future<void> deleteSize(String id) async {
-    final currentBaby = getBaby();
+    final currentBaby = _getBaby(_sharedPreferences);
     final newSizes = [...currentBaby.sizes]
       ..removeWhere((element) => element.id == id);
     final newBaby = currentBaby.copyWith(sizes: newSizes);
@@ -68,7 +70,7 @@ class LocalBabyApi extends BabyApi {
   }
 
   @override
-  Baby getBaby() {
+  Future<Baby> getBaby() async {
     return _getBaby(_sharedPreferences);
   }
 
