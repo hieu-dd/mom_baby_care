@@ -12,12 +12,13 @@ GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        final appBloc = context.watch<AppBloc>();
-        return appBloc.state.isUnAuthorized()
-            ? const LoginPage()
-            : appBloc.state.hasBaby()
-                ? const BabyPage()
-                : const CreateBabyPage();
+        return BlocBuilder<AppBloc, AppState>(builder: (context, state) {
+          return state.isUnAuthorized()
+              ? const LoginPage()
+              : state.hasBaby()
+                  ? const BabyPage()
+                  : const CreateBabyPage();
+        });
       },
       routes: <RouteBase>[
         GoRoute(
