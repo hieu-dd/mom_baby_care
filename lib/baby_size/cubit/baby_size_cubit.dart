@@ -13,19 +13,43 @@ class BabySizeCubit extends Cubit<BabySizeState> {
   }
 
   void changeHeight(double? height) {
-    emit(state.copyWith(newHeight: height));
+    emit(BabySizeState(
+      baby: state.baby,
+      newHeadSize: state.newHeadSize,
+      newHeight: height,
+      newWeight: state.newWeight,
+      dateTime: state.dateTime,
+    ));
   }
 
   void changeWeight(double? weight) {
-    emit(state.copyWith(newWeight: weight));
+    emit(BabySizeState(
+      baby: state.baby,
+      newHeadSize: state.newHeadSize,
+      newHeight: state.newHeight,
+      newWeight: weight,
+      dateTime: state.dateTime,
+    ));
   }
 
   void changeHeadSize(double? headSize) {
-    emit(state.copyWith(newHeadSize: headSize));
+    emit(BabySizeState(
+      baby: state.baby,
+      newHeadSize: headSize,
+      newHeight: state.newHeight,
+      newWeight: state.newWeight,
+      dateTime: state.dateTime,
+    ));
   }
 
   void changeDateTime(DateTime dateTime) {
-    emit(state.copyWith(dateTime: dateTime));
+    emit(BabySizeState(
+      baby: state.baby,
+      newHeadSize: state.newHeadSize,
+      newHeight: state.newHeight,
+      newWeight: state.newWeight,
+      dateTime: dateTime,
+    ));
   }
 
   void deleteSize(String id) {

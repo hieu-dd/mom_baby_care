@@ -11,6 +11,7 @@ void _showInputPopup(BuildContext context) async {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               TextField(
+                key: const Key('add_size_height'),
                 decoration: const InputDecoration(labelText: 'Chiều cao (cm)'),
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
@@ -21,6 +22,7 @@ void _showInputPopup(BuildContext context) async {
                 },
               ),
               TextField(
+                key: const Key('add_size_weight'),
                 decoration: InputDecoration(labelText: 'Cân nặng (kg)'),
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onChanged: (value) {
@@ -30,6 +32,7 @@ void _showInputPopup(BuildContext context) async {
                 },
               ),
               TextField(
+                key: const Key('add_size_head'),
                 decoration: InputDecoration(labelText: 'Vòng đầu (cm)'),
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onChanged: (value) {
@@ -50,25 +53,33 @@ void _showInputPopup(BuildContext context) async {
         ),
         actions: <Widget>[
           TextButton(
-            child: Text('Bỏ qua'),
             onPressed: () {
               Navigator.of(context).pop();
             },
+            child: const Text('Bỏ qua'),
           ),
-          Builder(builder: (context) {
-            final cubit = context.watch<BabySizeCubit>();
-            return TextButton(
-              child: Text('Lưu'),
-              onPressed: cubit.state.isValid()
-                  ? () async {
-                      await context.read<BabySizeCubit>().saveSize();
-                      Navigator.of(context).pop();
-                    }
-                  : null,
-            );
-          }),
+          const _ConfirmAddSizeButton(),
         ],
       );
     },
   );
+}
+
+class _ConfirmAddSizeButton extends StatelessWidget {
+  const _ConfirmAddSizeButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<BabySizeCubit, BabySizeState>(builder: (context, state) {
+      return TextButton(
+        onPressed: state.isValid()
+            ? () async {
+                await context.read<BabySizeCubit>().saveSize();
+                Navigator.of(context).pop();
+              }
+            : null,
+        child: const Text('Lưu'),
+      );
+    });
+  }
 }
