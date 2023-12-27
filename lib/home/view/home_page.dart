@@ -14,23 +14,22 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(80.0),
         child: Column(
           children: [
-            _BabyView(),
+            const _BabyView(),
             InkWell(
-              child: Text("Home"),
+              child: const Text("Home"),
               onTap: () {
                 appBloc.add(const AppLogoutRequested());
               },
             ),
             InkWell(
-              child: Text("Save Baby"),
+              child: const Text("Save Baby"),
               onTap: () {
-                context
-                    .read<BabyRepository>()
-                    .saveBaby(Baby(name: "name", birthDay: DateTime.now()));
+                context.read<BabyRepository>().saveBaby(
+                    Baby(id: '', name: "name", birthDay: DateTime.now()));
               },
             ),
             InkWell(
-              child: Text("Update Baby"),
+              child: const Text("Update Baby"),
               onTap: () {
                 context.read<BabyRepository>().updateName('');
               },
@@ -53,9 +52,9 @@ class _BabyView extends StatelessWidget {
         stream: babyRepository.streamBaby(),
         builder: (context, snapshot) {
           return !snapshot.hasData
-              ? Text("Null")
+              ? const Text("Null")
               : snapshot.requireData.name.isEmpty
-                  ? Text("Empty")
+                  ? const Text("Empty")
                   : Text(snapshot.requireData.name);
         });
   }

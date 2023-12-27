@@ -47,31 +47,39 @@ class _TableSize extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BabySizeCubit, BabySizeState>(
       builder: (context, state) {
-        return DataTable2(columnSpacing: 12, horizontalMargin: 12, columns: [
-          _tableSizeTitle('Chiều cao'),
-          _tableSizeTitle('Cân nặng'),
-          _tableSizeTitle('Vòng đầu'),
-          _tableSizeTitle('Thòi điểm'),
-          const DataColumn2(label: Text(''), size: ColumnSize.S),
-        ], rows: [
-          ...state.baby.sizes
-              .sortedBy((a, b) => a.time.isBefore(b.time))
-              .map((size) => DataRow(cells: [
-                    _tableSizeCell(size.height),
-                    _tableSizeCell(size.weight),
-                    _tableSizeCell(size.headSize),
-                    _tableSizeCell(
-                      size.time
-                          .calculateTimeDifferenceInString(state.baby.birthDay),
-                    ),
-                    DataCell(IconButton(
-                      onPressed: () {
-                        context.read<BabySizeCubit>().deleteSize(size.id);
-                      },
-                      icon: const Icon(Icons.delete),
-                    )),
-                  ])),
-        ]);
+        return DataTable2(
+          columnSpacing: 12,
+          horizontalMargin: 12,
+          smRatio: 0.3,
+          columns: [
+            _tableSizeTitle('Chiều cao'),
+            _tableSizeTitle('Cân nặng'),
+            _tableSizeTitle('Vòng đầu'),
+            _tableSizeTitle('Thòi điểm'),
+            const DataColumn2(label: Text(''), size: ColumnSize.S),
+          ],
+          rows: [
+            ...state.baby.sizes
+                .sortedBy((a, b) => a.time.isBefore(b.time))
+                .map((size) => DataRow(cells: [
+                      _tableSizeCell(size.height),
+                      _tableSizeCell(size.weight),
+                      _tableSizeCell(size.headSize),
+                      _tableSizeCell(
+                        size.time.calculateTimeDifferenceInString(
+                            state.baby.birthDay),
+                      ),
+                      DataCell(
+                        IconButton(
+                          onPressed: () {
+                            context.read<BabySizeCubit>().deleteSize(size.id);
+                          },
+                          icon: const Icon(Icons.delete),
+                        ),
+                      ),
+                    ])),
+          ],
+        );
       },
     );
   }

@@ -158,7 +158,7 @@ class _ConfirmButton extends StatelessWidget {
                     context.read<CreateBabyCubit>().createBaby();
                   }
                 : null,
-            child: Text('Confirm'),
+            child: const Text('Confirm'),
           ));
     });
   }
