@@ -18,9 +18,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     _authenticationRepository.user.listen((user) {
       add(_AppUserChanged(user));
     });
-    _babyRepository.streamBaby().listen((baby) {
-      add(_AppBabyChanged(baby));
-    });
     on<AppLogoutRequested>(_onLogoutRequested);
     on<_AppUserChanged>(_onUserChanged);
     on<_AppBabyChanged>(_onBabyChanged);
@@ -36,8 +33,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   Future<void> _onUserChanged(
       _AppUserChanged event, Emitter<AppState> emit) async {
     if (event.user.isNotEmpty) {
-      final baby = await _babyRepository.getBaby();
-      emit(AppState.authorized(user: event.user, baby: baby));
+      final user = event.user;
+      final baby = await _babyRepository.getBaby(token: user.id);
+      _babyRepository.streamBaby(token: user.id).listen((baby) {
+        add(_AppBabyChanged(baby));
+      });
+      emit(AppState.authorized(user: user, baby: baby));
     } else {
       emit(AppState.unauthorized());
     }

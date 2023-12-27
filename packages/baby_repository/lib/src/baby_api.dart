@@ -3,19 +3,19 @@ import 'package:baby_repository/src/models/baby_size.dart';
 import 'models/baby.dart';
 
 abstract class BabyApi {
-  Stream<Baby> streamBaby();
+  Stream<Baby> streamBaby(String? token);
 
-  Future<Baby> getBaby();
+  Future<Baby> getBaby(String? token);
 
-  Future<void> saveBaby(Baby baby);
+  Future<void> saveBaby(String? token, Baby baby);
 
-  Future<void> updateName(String name);
+  Future<void> updateName(String? token, String name);
 
-  Future<void> updateNickname(String nickName);
+  Future<void> updateNickname(String? token, String nickName);
 
-  Future<void> updateBirthDay(DateTime birthDay);
+  Future<void> updateBirthDay(String? token, DateTime birthDay);
 
-  Future<void> addSize(BabySize size);
+  Future<void> addSize(String? token, BabySize size);
 
-  Future<void> deleteSize(String id);
+  Future<void> deleteSize(String? token, String id);
 }

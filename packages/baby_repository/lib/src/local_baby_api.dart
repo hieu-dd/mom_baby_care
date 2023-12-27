@@ -16,42 +16,42 @@ class LocalBabyApi extends BabyApi {
   final SharedPreferences _sharedPreferences;
 
   @override
-  Stream<Baby> streamBaby() => _babyStreamController.stream;
+  Stream<Baby> streamBaby(String? token) => _babyStreamController.stream;
 
   @override
-  Future<void> saveBaby(Baby baby) async {
+  Future<void> saveBaby(String? token, Baby baby) async {
     _babyStreamController.sink.add(baby);
     await _saveBabyToSharedPreference(baby);
   }
 
   @override
-  Future<void> updateBirthDay(DateTime birthDay) async {
+  Future<void> updateBirthDay(String? token, DateTime birthDay) async {
     final newBaby =
         _getBaby(_sharedPreferences).copyWith(newBirthDay: birthDay);
     await _saveBabyToSharedPreference(newBaby);
   }
 
   @override
-  Future<void> updateName(String name) async {
+  Future<void> updateName(String? token, String name) async {
     final newBaby = _getBaby(_sharedPreferences)..copyWith(newName: name);
     await _saveBabyToSharedPreference(newBaby);
   }
 
   @override
-  Future<void> updateNickname(String nickName) async {
+  Future<void> updateNickname(String? token, String nickName) async {
     final newBaby =
         _getBaby(_sharedPreferences).copyWith(newNickname: nickName);
     await _saveBabyToSharedPreference(newBaby);
   }
 
   @override
-  Future<void> addSize(BabySize size) async {
+  Future<void> addSize(String? token, BabySize size) async {
     final newBaby = _getBaby(_sharedPreferences).copyWith(addSizes: [size]);
     await _saveBabyToSharedPreference(newBaby);
   }
 
   @override
-  Future<void> deleteSize(String id) async {
+  Future<void> deleteSize(String? token, String id) async {
     final currentBaby = _getBaby(_sharedPreferences);
     final newSizes = [...currentBaby.sizes]
       ..removeWhere((element) => element.id == id);
@@ -70,7 +70,9 @@ class LocalBabyApi extends BabyApi {
   }
 
   @override
-  Future<Baby> getBaby() async {
+  Future<Baby> getBaby(
+    String? token,
+  ) async {
     return _getBaby(_sharedPreferences);
   }
 

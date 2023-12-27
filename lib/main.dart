@@ -16,10 +16,14 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  const useRemote = true;
+
   final babyRepository = BabyRepository(
-    babyApi: LocalBabyApi(
-      preferences: await SharedPreferences.getInstance(),
-    ),
+    babyApi: useRemote
+        ? RemoteBabyApi()
+        : LocalBabyApi(
+            preferences: await SharedPreferences.getInstance(),
+          ),
   );
   final authenticationRepository = AuthenticationRepository();
   await authenticationRepository.user.first;
