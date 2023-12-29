@@ -5,7 +5,7 @@ void _showInputPopup(BuildContext context) async {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Nhập thông tin con yêu'),
+        title: const Text('Nhập thông tin con yêu'),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -23,8 +23,9 @@ void _showInputPopup(BuildContext context) async {
               ),
               TextField(
                 key: const Key('add_size_weight'),
-                decoration: InputDecoration(labelText: 'Cân nặng (kg)'),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                decoration: const InputDecoration(labelText: 'Cân nặng (kg)'),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 onChanged: (value) {
                   context
                       .read<BabySizeCubit>()
@@ -33,8 +34,9 @@ void _showInputPopup(BuildContext context) async {
               ),
               TextField(
                 key: const Key('add_size_head'),
-                decoration: InputDecoration(labelText: 'Vòng đầu (cm)'),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                decoration: const InputDecoration(labelText: 'Vòng đầu (cm)'),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 onChanged: (value) {
                   context
                       .read<BabySizeCubit>()
@@ -66,18 +68,19 @@ void _showInputPopup(BuildContext context) async {
 }
 
 class _ConfirmAddSizeButton extends StatelessWidget {
-  const _ConfirmAddSizeButton({super.key});
+  const _ConfirmAddSizeButton();
+
+  _saveSize(BuildContext context) async {
+    await context.read<BabySizeCubit>().saveSize();
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BabySizeCubit, BabySizeState>(builder: (context, state) {
+    return BlocBuilder<BabySizeCubit, BabySizeState>(
+        builder: (BuildContext context, state) {
       return TextButton(
-        onPressed: state.isValid()
-            ? () async {
-                await context.read<BabySizeCubit>().saveSize();
-                Navigator.of(context).pop();
-              }
-            : null,
+        onPressed: state.isValid() ? () => _saveSize(context) : null,
         child: const Text('Lưu'),
       );
     });

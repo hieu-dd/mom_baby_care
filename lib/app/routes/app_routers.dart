@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mom_baby_care/app/bloc/app_bloc.dart';
+import 'package:mom_baby_care/app/routes/routes.dart';
 import 'package:mom_baby_care/baby/baby.dart';
+import 'package:mom_baby_care/baby_info/baby_info.dart';
 import 'package:mom_baby_care/baby_size/baby_size.dart';
 import 'package:mom_baby_care/create_baby/create_baby.dart';
 import 'package:mom_baby_care/login/login.dart';
@@ -22,9 +24,15 @@ GoRouter appRouter = GoRouter(
       },
       routes: <RouteBase>[
         GoRoute(
-          path: BabySizePage.route,
+          path: RouterDestination.babySize.path,
           builder: (BuildContext context, GoRouterState state) {
             return const BabySizePage();
+          },
+        ),
+        GoRoute(
+          path: RouterDestination.babyInfo.path,
+          builder: (BuildContext context, GoRouterState state) {
+            return const BabyInfoPage();
           },
         ),
       ],

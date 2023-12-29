@@ -63,7 +63,7 @@ class _NameInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CreateBabyCubit, CreateBabState>(
+    return BlocBuilder<CreateBabyCubit, CreateBabyState>(
         buildWhen: (previous, current) => previous.name != current.name,
         builder: (context, state) {
           return TextField(
@@ -87,7 +87,7 @@ class _NickNameInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CreateBabyCubit, CreateBabState>(
+    return BlocBuilder<CreateBabyCubit, CreateBabyState>(
         buildWhen: (previous, current) => previous.nickname != current.nickname,
         builder: (context, state) {
           return TextField(
@@ -111,7 +111,7 @@ class _BirthdayInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CreateBabyCubit, CreateBabState>(
+    return BlocBuilder<CreateBabyCubit, CreateBabyState>(
         buildWhen: (previous, current) => previous.birthday != current.birthday,
         builder: (context, state) {
           return TextFieldDateTime(
@@ -128,7 +128,7 @@ class _GenderInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CreateBabyCubit, CreateBabState>(
+    return BlocBuilder<CreateBabyCubit, CreateBabyState>(
         buildWhen: (previous, current) => previous.gender != current.gender,
         builder: (context, state) {
           return TextFieldGender(
@@ -147,7 +147,7 @@ class _ConfirmButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CreateBabyCubit, CreateBabState>(
+    return BlocBuilder<CreateBabyCubit, CreateBabyState>(
         builder: (context, state) {
       return SizedBox(
           width: double.infinity,

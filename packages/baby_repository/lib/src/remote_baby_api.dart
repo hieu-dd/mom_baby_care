@@ -90,7 +90,7 @@ class RemoteBabyApi extends BabyApi {
 
   Baby _babyFromDocumentSnapshot(
       cloud_firestore.DocumentSnapshot<Map<String, dynamic>> snapshot) {
-    return snapshot.exists ? Baby.fromJson(snapshot.data()!) : Baby.empty();
+    return snapshot.exists ? Baby.fromJson(snapshot.data()!) : Baby.empty;
   }
 
   void _checkLogin(String? token) {

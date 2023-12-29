@@ -16,7 +16,7 @@ class BabySizeState extends Equatable {
   final double? newHeadSize;
   final DateTime? dateTime;
 
-  static BabySizeState initial = BabySizeState(baby: Baby.empty());
+  static BabySizeState initial = BabySizeState(baby: Baby.empty);
 
   bool isValid() =>
       dateTime != null &&

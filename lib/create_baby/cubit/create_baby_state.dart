@@ -1,8 +1,8 @@
 import 'package:baby_repository/baby_repository.dart';
 import 'package:equatable/equatable.dart';
 
-class CreateBabState extends Equatable {
-  const CreateBabState(
+class CreateBabyState extends Equatable {
+  const CreateBabyState(
       {required this.name,
       this.nickname,
       this.gender = Gender.other,
@@ -13,17 +13,17 @@ class CreateBabState extends Equatable {
   final Gender gender;
   final DateTime? birthday;
 
-  static const empty = CreateBabState(name: '');
+  static const empty = CreateBabyState(name: '');
 
   bool get isValid => name.isNotEmpty && birthday != null;
 
-  CreateBabState copyWith({
+  CreateBabyState copyWith({
     String? name,
     String? nickname,
     Gender? gender,
     DateTime? birthday,
   }) {
-    return CreateBabState(
+    return CreateBabyState(
       name: name ?? this.name,
       nickname: nickname ?? this.nickname,
       gender: gender ?? this.gender,

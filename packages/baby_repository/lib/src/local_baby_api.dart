@@ -84,7 +84,7 @@ class LocalBabyApi extends BabyApi {
         final babyJson = jsonDecode(sharedPreferences.getString(_babyKey)!);
         return Baby.fromJson(babyJson);
       } catch (e) {
-        return Baby.empty();
+        return Baby.empty;
       }
     }
   }

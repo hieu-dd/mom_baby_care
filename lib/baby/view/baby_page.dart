@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mom_baby_care/app/routes/routes.dart';
 import 'package:mom_baby_care/baby/cubit/baby_cubit.dart';
 import 'package:mom_baby_care/baby/cubit/baby_state.dart';
-import 'package:mom_baby_care/baby_size/baby_size.dart';
+import 'package:mom_baby_care/common/view/baby_logo.dart';
 import 'package:mom_baby_care/common/view/border.dart';
 import 'package:mom_baby_care/consts/consts.dart';
 import 'package:mom_baby_care/utils/date_time.dart';
@@ -22,17 +23,6 @@ class BabyPage extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 100),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '❤ Baby ❤',
-                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                          color: Theme.of(context).colorScheme.primary),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
                 const _BabyName(),
                 const SizedBox(height: 40),
                 const _BabyAge(),
@@ -61,14 +51,7 @@ class _BabyName extends StatelessWidget {
           return Stack(
             alignment: Alignment.bottomCenter,
             children: [
-              SizedBox(
-                width: 150,
-                height: 150,
-                child: ClipRRect(
-                  borderRadius: AppBorderRadius.medium,
-                  child: Image.asset(AssetsImage.babyAvatar),
-                ),
-              ),
+              const BabyLogo(),
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 6),
@@ -144,11 +127,11 @@ class _BabySettings extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _item(
-                context,
-                label: 'Thông tin con yêu',
-                image: AssetsImage.icNote,
-              ),
+              _item(context,
+                  label: 'Thông tin con yêu',
+                  image: AssetsImage.icNote, onTap: () {
+                context.go(RouterDestination.babyInfo.route);
+              }),
               _item(
                 context,
                 label: 'Con yêu theo tháng tuổi',
@@ -159,7 +142,7 @@ class _BabySettings extends StatelessWidget {
                 label: 'Số đo con yêu',
                 image: AssetsImage.icWeight,
                 onTap: () {
-                  context.go('/${BabySizePage.route}');
+                  context.go(RouterDestination.babySize.route);
                 },
               ),
             ],

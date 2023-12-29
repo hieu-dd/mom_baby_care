@@ -10,8 +10,6 @@ import 'package:mom_baby_care/utils/list.dart';
 part 'add_baby_size_alert.dart';
 
 class BabySizePage extends StatelessWidget {
-  static const route = 'baby_size_route';
-
   const BabySizePage({super.key});
 
   @override
@@ -48,9 +46,10 @@ class _TableSize extends StatelessWidget {
     return BlocBuilder<BabySizeCubit, BabySizeState>(
       builder: (context, state) {
         return DataTable2(
-          columnSpacing: 12,
-          horizontalMargin: 12,
-          smRatio: 0.3,
+          columnSpacing: 8,
+          horizontalMargin: 0,
+          smRatio: 0.5,
+          lmRatio: 1.0,
           columns: [
             _tableSizeTitle('Chiều cao'),
             _tableSizeTitle('Cân nặng'),
@@ -70,11 +69,11 @@ class _TableSize extends StatelessWidget {
                             state.baby.birthDay),
                       ),
                       DataCell(
-                        IconButton(
-                          onPressed: () {
+                        InkWell(
+                          onTap: () {
                             context.read<BabySizeCubit>().deleteSize(size.id);
                           },
-                          icon: const Icon(Icons.delete),
+                          child: const Icon(Icons.delete),
                         ),
                       ),
                     ])),

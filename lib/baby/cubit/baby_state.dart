@@ -6,7 +6,7 @@ class BabyState extends Equatable {
 
   final Baby baby;
 
-  static BabyState initial = BabyState(baby: Baby.empty());
+  static BabyState initial = BabyState(baby: Baby.empty);
 
   BabyState copyWith(Baby? baby) {
     return BabyState(baby: baby ?? this.baby);

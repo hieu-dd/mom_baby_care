@@ -3,10 +3,10 @@ import 'package:bloc/bloc.dart';
 import 'package:mom_baby_care/create_baby/cubit/create_baby_state.dart';
 import 'package:uuid/uuid.dart';
 
-class CreateBabyCubit extends Cubit<CreateBabState> {
+class CreateBabyCubit extends Cubit<CreateBabyState> {
   CreateBabyCubit({required BabyRepository babyRepository})
       : _babyRepository = babyRepository,
-        super(CreateBabState.empty);
+        super(CreateBabyState.empty);
 
   final BabyRepository _babyRepository;
 

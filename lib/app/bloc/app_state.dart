@@ -23,14 +23,14 @@ class AppState extends Equatable {
       : this._(
           status: AppStatus.unauthorized,
           user: User.empty,
-          baby: Baby.empty(),
+          baby: Baby.empty,
         );
 
   AppState.authorized({required User user, Baby? baby})
       : this._(
           status: AppStatus.authorized,
           user: user,
-          baby: baby ?? Baby.empty(),
+          baby: baby ?? Baby.empty,
         );
 
   AppState copyWith({Baby? baby}) => AppState(
