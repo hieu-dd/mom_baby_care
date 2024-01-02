@@ -32,33 +32,38 @@ class _BabyInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.read<BabyInfoCubit>().save();
+              },
+              icon: const Icon(Icons.save))
+        ],
+      ),
       body: const SizedBox(
         width: double.infinity,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 100,
-              ),
-              BabyLogo(),
-              SizedBox(height: 30),
-              _BabyInfoName(key: ValueKey('_baby_info_name')),
-              SizedBox(height: 10),
-              _BabyInfoNickName(key: ValueKey('_baby_info_nickname')),
-              SizedBox(height: 10),
-              _BabyInfoBirthday(key: ValueKey('_baby_info_birthday')),
-              SizedBox(height: 10),
-              _BabyInfoGender(key: ValueKey('_baby_info_gender'))
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 100,
+                ),
+                BabyLogo(),
+                SizedBox(height: 30),
+                _BabyInfoName(key: ValueKey('_baby_info_name')),
+                SizedBox(height: 10),
+                _BabyInfoNickName(key: ValueKey('_baby_info_nickname')),
+                SizedBox(height: 10),
+                _BabyInfoBirthday(key: ValueKey('_baby_info_birthday')),
+                SizedBox(height: 10),
+                _BabyInfoGender(key: ValueKey('_baby_info_gender'))
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton.large(
-        onPressed: () {
-          context.read<BabyInfoCubit>().save();
-        },
-        child: const Icon(Icons.save),
       ),
     );
   }

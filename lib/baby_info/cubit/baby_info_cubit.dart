@@ -9,6 +9,8 @@ class BabyInfoCubit extends Cubit<BabyInfoState> {
     _babyRepository.streamBaby().listen(_changeBaby);
   }
 
+  final BabyRepository _babyRepository;
+
   void _changeBaby(Baby baby) {
     emit(state.copyWith(
       baby: baby,
@@ -43,6 +45,4 @@ class BabyInfoCubit extends Cubit<BabyInfoState> {
       gender: state.gender,
     ));
   }
-
-  final BabyRepository _babyRepository;
 }

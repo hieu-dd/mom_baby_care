@@ -47,7 +47,7 @@ class RemoteBabyApi extends BabyApi {
     await _firebaseFirestore
         .collection('babies')
         .doc(_token)
-        .set(baby.toJson());
+        .update(baby.toJson());
   }
 
   @override
