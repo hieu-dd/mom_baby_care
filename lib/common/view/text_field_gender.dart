@@ -26,9 +26,20 @@ class _TextFieldGenderState extends State<TextFieldGender> {
   String? _selectedValue;
 
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 0), () {
+      setState(() {
+        _selectedValue = widget.selected;
+      });
+    });
+  }
+
+  @override
   void didUpdateWidget(covariant TextFieldGender oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.selected != widget.selected) {
+    if (oldWidget.selected != widget.selected ||
+        oldWidget.dropdownOptions != widget.dropdownOptions) {
       setState(() {
         _selectedValue = widget.selected;
       });
