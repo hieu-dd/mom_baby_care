@@ -80,10 +80,10 @@ class _BabyAge extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BabyCubit, BabyState>(
       buildWhen: (previous, current) =>
-          previous.baby.birthDay != current.baby.birthDay,
+          previous.baby.birthday != current.baby.birthday,
       builder: (context, state) {
         final babyAge =
-            DateTime.now().calculateTimeDifference(state.baby.birthDay);
+            DateTime.now().calculateTimeDifference(state.baby.birthday);
         return Row(
           children: [
             _item(context, '${babyAge['years']} years'),

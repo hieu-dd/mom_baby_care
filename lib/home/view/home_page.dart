@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
               child: const Text("Save Baby"),
               onTap: () {
                 context.read<BabyRepository>().saveBaby(
-                    Baby(id: '', name: "name", birthDay: DateTime.now()));
+                    Baby(id: '', name: "name", birthday: DateTime.now()));
               },
             ),
             InkWell(

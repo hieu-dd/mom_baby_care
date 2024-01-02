@@ -32,7 +32,7 @@ class CreateBabyCubit extends Cubit<CreateBabyState> {
       id: const Uuid().v1().toString(),
       name: state.name,
       nickname: state.nickname,
-      birthDay: state.birthday!,
+      birthday: state.birthday!,
       gender: state.gender,
     ));
   }

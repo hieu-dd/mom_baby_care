@@ -1,13 +1,13 @@
 part of 'baby_info_page.dart';
 
-class _BabyInfoName extends StatefulWidget {
-  const _BabyInfoName({super.key});
+class _BabyInfoNickName extends StatefulWidget {
+  const _BabyInfoNickName({super.key});
 
   @override
-  State<_BabyInfoName> createState() => _BabyInfoNameState();
+  State<_BabyInfoNickName> createState() => _BabyInfoNickNameState();
 }
 
-class _BabyInfoNameState extends State<_BabyInfoName> {
+class _BabyInfoNickNameState extends State<_BabyInfoNickName> {
   final TextEditingController _editingController = TextEditingController();
 
   @override
@@ -19,11 +19,11 @@ class _BabyInfoNameState extends State<_BabyInfoName> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BabyInfoCubit, BabyInfoState>(
-      listenWhen: (previous, current) => previous.name != current.name,
+      listenWhen: (previous, current) => previous.nickname != current.nickname,
       listener: (context, state) {
-        _editingController.text = state.name;
+        _editingController.text = state.nickname ?? '';
       },
-      buildWhen: (previous, current) => previous.name != current.name,
+      buildWhen: (previous, current) => previous.nickname != current.nickname,
       builder: (context, state) {
         return TextField(
           controller: _editingController,
@@ -31,10 +31,10 @@ class _BabyInfoNameState extends State<_BabyInfoName> {
             border: OutlineInputBorder(
               borderRadius: AppBorderRadius.medium,
             ),
-            label: Text("Tên"),
+            label: Text("Biệt danh"),
           ),
           onChanged: (text) {
-            context.read<BabyInfoCubit>().changeName(text);
+            context.read<BabyInfoCubit>().changeNickname(text);
           },
         );
       },

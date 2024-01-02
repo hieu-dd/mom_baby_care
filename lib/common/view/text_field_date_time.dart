@@ -8,19 +8,43 @@ class TextFieldDateTime extends StatefulWidget {
     required this.selectDate,
     required this.label,
     InputBorder? inputBorder,
+    DateTime? initialDate,
     super.key,
-  }) : _border = inputBorder;
+  })  : _border = inputBorder,
+        _initialDate = initialDate;
 
   final Function selectDate;
   final String label;
   final InputBorder? _border;
+  final DateTime? _initialDate;
 
   @override
   State<TextFieldDateTime> createState() => _TextFieldDateTimeState();
 }
 
 class _TextFieldDateTimeState extends State<TextFieldDateTime> {
-  final TextEditingController _controller = TextEditingController();
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void didUpdateWidget(covariant TextFieldDateTime oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget._initialDate != widget._initialDate) {
+      _controller.text =
+          widget._initialDate != null ? _formatTime(widget._initialDate!) : '';
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -30,9 +54,8 @@ class _TextFieldDateTimeState extends State<TextFieldDateTime> {
       lastDate: DateTime(2101),
     );
     if (picked != null) {
-      String formattedDate = DateFormat('yyyy-MM-dd').format(picked);
       setState(() {
-        _controller.text = formattedDate;
+        _controller.text = _formatTime(picked);
         widget.selectDate(picked);
       });
     }
@@ -54,5 +77,9 @@ class _TextFieldDateTimeState extends State<TextFieldDateTime> {
         _selectDate(context);
       },
     );
+  }
+
+  String _formatTime(DateTime time) {
+    return DateFormat('yyyy-MM-dd').format(time);
   }
 }

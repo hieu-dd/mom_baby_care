@@ -15,7 +15,7 @@ class BabyInfoCubit extends Cubit<BabyInfoState> {
       name: baby.name,
       nickname: baby.nickname,
       gender: baby.gender,
-      birthday: baby.birthDay,
+      birthday: baby.birthday,
     ));
   }
 
@@ -27,12 +27,21 @@ class BabyInfoCubit extends Cubit<BabyInfoState> {
     emit(state.copyWith(nickname: nickname));
   }
 
-  void changeGender(Gender gender) {
-    emit(state.copyWith(gender: gender));
+  void changeGender(String gender) {
+    emit(state.copyWith(gender: Gender.values.byName(gender)));
   }
 
   void changeBirthday(DateTime birthday) {
     emit(state.copyWith(birthday: birthday));
+  }
+
+  void save() async {
+    await _babyRepository.saveBaby(state.baby.copyWith(
+      name: state.name,
+      nickname: state.nickname,
+      birthday: state.birthday,
+      gender: state.gender,
+    ));
   }
 
   final BabyRepository _babyRepository;

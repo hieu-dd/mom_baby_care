@@ -10,18 +10,18 @@ class Baby extends Equatable {
     required this.id,
     required this.name,
     this.nickname,
-    required this.birthDay,
+    required this.birthday,
     this.sizes = const [],
     this.gender = Gender.other,
   });
 
-  static Baby empty = Baby(id: '', name: '', birthDay: DateTime.now());
+  static Baby empty = Baby(id: '', name: '', birthday: DateTime.now());
 
   bool get isEmpty => name == '';
   final String id;
   final String name;
   final String? nickname;
-  final DateTime birthDay;
+  final DateTime birthday;
   final List<BabySize> sizes;
   final Gender gender;
 
@@ -30,7 +30,7 @@ class Baby extends Equatable {
       id: json['id'] as String,
       name: json['name'] as String,
       nickname: json['nickname'] as String?,
-      birthDay: DateFormat('yyyy-MM-dd').parse(json['birthDay'] as String),
+      birthday: DateFormat('yyyy-MM-dd').parse(json['birthDay'] as String),
       sizes: (json['sizes'] as List<dynamic>?)
               ?.map((size) => BabySize.fromJson(size as Map<String, dynamic>))
               .toList() ??
@@ -44,28 +44,30 @@ class Baby extends Equatable {
       'id': id,
       'name': name,
       'nickname': nickname,
-      'birthDay': DateFormat('yyyy-MM-dd').format(birthDay),
+      'birthDay': DateFormat('yyyy-MM-dd').format(birthday),
       'sizes': sizes.map((size) => size.toJson()).toList(),
       'gender': gender.name
     };
   }
 
   Baby copyWith({
-    String? newName,
-    String? newNickname,
-    DateTime? newBirthDay,
+    String? name,
+    String? nickname,
+    DateTime? birthday,
     List<BabySize>? addSizes,
     List<BabySize>? sizes,
+    Gender? gender,
   }) {
     return Baby(
       id: id,
-      name: newName ?? name,
-      nickname: newNickname ?? nickname,
-      birthDay: newBirthDay ?? birthDay,
+      name: name ?? this.name,
+      nickname: nickname ?? this.nickname,
+      birthday: birthday ?? this.birthday,
       sizes: (sizes ?? [...this.sizes, ...?addSizes]).toSet().toList(),
+      gender: gender ?? this.gender,
     );
   }
 
   @override
-  List<Object?> get props => [id, name, nickname, birthDay, gender, sizes];
+  List<Object?> get props => [id, name, nickname, birthday, gender, sizes];
 }

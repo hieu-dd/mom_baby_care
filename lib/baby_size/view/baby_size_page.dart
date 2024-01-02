@@ -66,7 +66,7 @@ class _TableSize extends StatelessWidget {
                       _tableSizeCell(size.headSize),
                       _tableSizeCell(
                         size.time.calculateTimeDifferenceInString(
-                            state.baby.birthDay),
+                            state.baby.birthday),
                       ),
                       DataCell(
                         InkWell(

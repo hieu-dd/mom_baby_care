@@ -5,8 +5,13 @@ import 'package:mom_baby_care/baby_info/cubit/baby_info_cubit.dart';
 import 'package:mom_baby_care/baby_info/cubit/baby_info_state.dart';
 import 'package:mom_baby_care/common/view/baby_logo.dart';
 import 'package:mom_baby_care/common/view/border.dart';
+import 'package:mom_baby_care/common/view/text_field_date_time.dart';
+import 'package:mom_baby_care/common/view/text_field_gender.dart';
 
+part 'baby_info_birthday.dart';
+part 'baby_info_gender.dart';
 part 'baby_info_name.dart';
+part 'baby_info_nickname.dart';
 
 class BabyInfoPage extends StatelessWidget {
   const BabyInfoPage({super.key});
@@ -26,11 +31,11 @@ class _BabyInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SizedBox(
+    return Scaffold(
+      body: const SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
               SizedBox(
@@ -38,10 +43,22 @@ class _BabyInfoPage extends StatelessWidget {
               ),
               BabyLogo(),
               SizedBox(height: 30),
-              _BabyInfoName(),
+              _BabyInfoName(key: ValueKey('_baby_info_name')),
+              SizedBox(height: 10),
+              _BabyInfoNickName(key: ValueKey('_baby_info_nickname')),
+              SizedBox(height: 10),
+              _BabyInfoBirthday(key: ValueKey('_baby_info_birthday')),
+              SizedBox(height: 10),
+              _BabyInfoGender(key: ValueKey('_baby_info_gender'))
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.large(
+        onPressed: () {
+          context.read<BabyInfoCubit>().save();
+        },
+        child: const Icon(Icons.save),
       ),
     );
   }

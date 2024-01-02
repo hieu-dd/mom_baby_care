@@ -7,12 +7,14 @@ class TextFieldGender extends StatefulWidget {
     required this.select,
     required this.label,
     required this.dropdownOptions,
+    this.selected,
     super.key,
   });
 
   final Function select;
   final String label;
   final List<String> dropdownOptions;
+  final String? selected;
 
   @override
   State<TextFieldGender> createState() => _TextFieldGenderState();
@@ -24,6 +26,22 @@ class _TextFieldGenderState extends State<TextFieldGender> {
   String? _selectedValue;
 
   @override
+  void didUpdateWidget(covariant TextFieldGender oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selected != widget.selected) {
+      setState(() {
+        _selectedValue = widget.selected;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _dropdownValueController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
       value: _selectedValue,
@@ -32,9 +50,9 @@ class _TextFieldGenderState extends State<TextFieldGender> {
       onChanged: (String? newValue) {
         setState(() {
           _selectedValue = newValue;
-          widget.select(newValue);
-          _dropdownValueController.text = newValue ?? '';
         });
+        widget.select(newValue);
+        _dropdownValueController.text = newValue ?? '';
       },
       items:
           widget.dropdownOptions.map<DropdownMenuItem<String>>((String value) {
@@ -50,11 +68,5 @@ class _TextFieldGenderState extends State<TextFieldGender> {
         label: Text(widget.label),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _dropdownValueController.dispose();
-    super.dispose();
   }
 }
