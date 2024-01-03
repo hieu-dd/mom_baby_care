@@ -3,34 +3,29 @@ import 'package:equatable/equatable.dart';
 
 class BabyInfoState extends Equatable {
   const BabyInfoState({
-    required this.baby,
     required this.name,
     required this.gender,
     this.nickname,
     this.birthday,
   });
 
-  final Baby baby;
   final String name;
   final String? nickname;
   final Gender gender;
   final DateTime? birthday;
 
-  static BabyInfoState empty = BabyInfoState(
+  static BabyInfoState empty = const BabyInfoState(
     name: '',
-    baby: Baby.empty,
     gender: Gender.other,
   );
 
   BabyInfoState copyWith({
-    Baby? baby,
     String? name,
     String? nickname,
     Gender? gender,
     DateTime? birthday,
   }) {
     return BabyInfoState(
-      baby: baby ?? this.baby,
       name: name ?? this.name,
       nickname: nickname ?? this.nickname,
       gender: gender ?? this.gender,
@@ -39,5 +34,5 @@ class BabyInfoState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [baby, name, nickname, gender, birthday];
+  List<Object?> get props => [name, nickname, gender, birthday];
 }

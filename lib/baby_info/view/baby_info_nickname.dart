@@ -19,7 +19,9 @@ class _BabyInfoNickNameState extends State<_BabyInfoNickName> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BabyInfoCubit, BabyInfoState>(
-      listenWhen: (previous, current) => previous.nickname != current.nickname,
+      listenWhen: (previous, current) =>
+          previous.nickname != current.nickname &&
+          current.nickname != _editingController.text,
       listener: (context, state) {
         _editingController.text = state.nickname ?? '';
       },
