@@ -10,12 +10,11 @@ class BabyInfoCubit extends Cubit<BabyInfoState> {
     _babyRepository.streamBaby().listen(_changeBaby);
   }
 
-  Baby _currentBaby = Baby.empty;
   final BabyRepository _babyRepository;
 
   void _changeBaby(Baby baby) {
-    _currentBaby = baby;
     emit(state.copyWith(
+      baby: baby,
       name: baby.name,
       nickname: baby.nickname,
       gender: baby.gender,
@@ -40,7 +39,7 @@ class BabyInfoCubit extends Cubit<BabyInfoState> {
   }
 
   void save() async {
-    final baby = _currentBaby.copyWith(
+    final baby = state.baby.copyWith(
       name: state.name,
       nickname: state.nickname,
       birthday: state.birthday,
