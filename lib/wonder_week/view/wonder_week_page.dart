@@ -21,7 +21,7 @@ class WonderWeekPage extends StatelessWidget {
 }
 
 class _WonderWeekPage extends StatelessWidget {
-  const _WonderWeekPage({super.key});
+  const _WonderWeekPage();
 
   @override
   Widget build(BuildContext context) {

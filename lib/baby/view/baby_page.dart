@@ -14,21 +14,21 @@ class BabyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               children: [
-                const SizedBox(height: 100),
-                const _BabyName(),
-                const SizedBox(height: 40),
-                const _BabyAge(),
-                const SizedBox(height: 40),
-                const _BabySettings(),
-                const SizedBox(height: 50)
+                SizedBox(height: 100),
+                _BabyName(),
+                SizedBox(height: 40),
+                _BabyAge(),
+                SizedBox(height: 40),
+                _BabySettings(),
+                SizedBox(height: 50)
               ],
             ),
           ),

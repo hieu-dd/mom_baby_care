@@ -1,12 +1,11 @@
 part of 'wonder_week_page.dart';
 
 class _StepWeeks extends StatelessWidget {
-  const _StepWeeks({super.key});
+  const _StepWeeks();
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final stepWidth = width / 80;
     return BlocBuilder<WonderWeekCubit, WonderWeekState>(
       builder: (context, state) {
         final wonderWeeks = state.wonderWeeks;
