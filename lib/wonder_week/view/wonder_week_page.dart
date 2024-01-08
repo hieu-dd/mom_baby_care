@@ -49,9 +49,8 @@ class _WonderWeekPage extends StatelessWidget {
 
   Widget _descriptionWeek(BuildContext context, bool isInWonderWeek) {
     final theme = Theme.of(context);
-    final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: screenWidth / 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: [
           Container(

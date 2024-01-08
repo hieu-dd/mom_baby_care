@@ -50,7 +50,7 @@ class _StepWeeks extends StatelessWidget {
     final isInWonderWeek = wonderWeeks.any(
         (element) => element.start <= step * 0.5 && element.end > step * 0.5);
     return Positioned(
-      left: (col + 1) * stepWidth,
+      left: 16 + col * stepWidth,
       top: row * 70.0 + 50,
       child: Container(
         width: stepWidth,
@@ -85,7 +85,7 @@ class _StepWeeks extends StatelessWidget {
     final stepWidth = width / 8;
     final week = row * 7 + col;
     return Positioned(
-        left: (col + 0.5) * stepWidth - 3,
+        left: col * stepWidth + 13,
         top: row * 70.0 + 70,
         child: Text(
           week.toInt().toString(),
@@ -96,7 +96,7 @@ class _StepWeeks extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final int row = currentWeek ~/ 7;
     return Positioned(
-        left: (currentWeek % 7 + 0.5) * (width / 8) - 15,
+        left: (currentWeek % 7) * (width / 8),
         top: row * 70.0 + 15,
         child: Icon(
           Icons.location_pin,
