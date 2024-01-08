@@ -12,4 +12,8 @@ class RouterDestination {
     route: '/baby_info',
     path: 'baby_info',
   );
+  static const wonderWeek = RouterDestination(
+    route: '/wonder_week',
+    path: 'wonder_week',
+  );
 }

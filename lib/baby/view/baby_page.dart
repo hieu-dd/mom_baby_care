@@ -127,11 +127,14 @@ class _BabySettings extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _item(context,
-                  label: 'Thông tin con yêu',
-                  image: AssetsImage.icNote, onTap: () {
-                context.go(RouterDestination.babyInfo.route);
-              }),
+              _item(
+                context,
+                label: 'Thông tin con yêu',
+                image: AssetsImage.icNote,
+                onTap: () {
+                  context.go(RouterDestination.babyInfo.route);
+                },
+              ),
               _item(
                 context,
                 label: 'Con yêu theo tháng tuổi',
@@ -157,6 +160,9 @@ class _BabySettings extends StatelessWidget {
                 context,
                 label: 'Tuần khủng hoảng',
                 image: AssetsImage.icCalendar2,
+                onTap: () {
+                  context.go(RouterDestination.wonderWeek.route);
+                },
               ),
               _item(
                 context,
@@ -191,7 +197,7 @@ class _BabySettings extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               borderRadius: AppBorderRadius.medium,
-              color: Theme.of(context).colorScheme.onBackground,
+              color: Theme.of(context).highlightColor,
             ),
             child: Image.asset(image),
           ),

@@ -50,4 +50,11 @@ extension DateTimeEx on DateTime {
     }
     return result.isNotEmpty ? result.trim() : '0 ngày';
   }
+
+  double calculateMonthDifference(DateTime pastDate) {
+    final timeDifference = calculateTimeDifference(pastDate);
+    return (timeDifference['years']! * 12 + timeDifference['months']!)
+            .toDouble() +
+        (timeDifference['days']!.toDouble() / 7);
+  }
 }

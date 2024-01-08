@@ -8,6 +8,7 @@ import 'package:mom_baby_care/baby_info/baby_info.dart';
 import 'package:mom_baby_care/baby_size/baby_size.dart';
 import 'package:mom_baby_care/create_baby/create_baby.dart';
 import 'package:mom_baby_care/login/login.dart';
+import 'package:mom_baby_care/wonder_week/wonder_week.dart';
 
 GoRouter appRouter = GoRouter(
   routes: <RouteBase>[
@@ -35,6 +36,11 @@ GoRouter appRouter = GoRouter(
             return const BabyInfoPage();
           },
         ),
+        GoRoute(
+            path: RouterDestination.wonderWeek.path,
+            builder: (context, state) {
+              return const WonderWeekPage();
+            })
       ],
     ),
   ],
