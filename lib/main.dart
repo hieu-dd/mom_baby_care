@@ -3,7 +3,6 @@ import 'package:baby_repository/baby_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/app.dart';
 import 'bloc_observer.dart';
@@ -16,13 +15,13 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  const bool useRemote = true;
+  const bool useRemote = false;
 
   final babyRepository = BabyRepository(
     babyApi: useRemote
         ? RemoteBabyApi()
-        : LocalBabyApi(
-            preferences: await SharedPreferences.getInstance(),
+        : DriftBabyApi(
+            babiesDatabase: BabiesDatabase(),
           ),
   );
   final authenticationRepository = AuthenticationRepository();
