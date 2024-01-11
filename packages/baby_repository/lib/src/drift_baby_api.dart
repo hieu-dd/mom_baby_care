@@ -4,6 +4,7 @@ import 'package:baby_repository/src/models/baby.dart';
 import 'package:baby_repository/src/models/baby_size.dart';
 import 'package:baby_repository/src/utils/baby_ext.dart';
 import 'package:drift/drift.dart';
+import 'package:rxdart/rxdart.dart';
 
 class DriftBabyApi extends BabyApi {
   DriftBabyApi({required db.BabiesDatabase babiesDatabase})
@@ -11,10 +12,24 @@ class DriftBabyApi extends BabyApi {
   final db.BabiesDatabase _babiesDatabase;
 
   @override
-  Future<void> addSize(String? token, BabySize size) async {}
+  Future<void> addSize(String? token, BabySize size) async {
+    final baby = (await _babiesDatabase.getAllBabies()).firstOrNull;
+    if (baby == null) return;
+    final result = await _babiesDatabase
+        .upsertBabySize(db.BabySizeEntitiesCompanion.insert(
+      babyId: baby.id,
+      headSize: size.headSize,
+      weight: size.weight,
+      height: size.height,
+      time: size.time,
+    ));
+    print(result);
+  }
 
   @override
-  Future<void> deleteSize(String? token, String id) async {}
+  Future<void> deleteSize(String? token, String id) async {
+    await _babiesDatabase.deleteBabySize(int.tryParse(id) ?? 0);
+  }
 
   @override
   Future<Baby> getBaby(String? token) async {
@@ -26,7 +41,7 @@ class DriftBabyApi extends BabyApi {
   @override
   Future<void> saveBaby(String? token, Baby baby) async {
     final currentBaby = (await _babiesDatabase.getAllBabies()).firstOrNull;
-    await _babiesDatabase.upsert(db.BabiesCompanion(
+    await _babiesDatabase.upsert(db.BabyEntitiesCompanion(
       id: Value(currentBaby?.id ?? 1),
       name: Value(baby.name),
       nickname: Value(baby.nickname ?? ''),
@@ -37,18 +52,24 @@ class DriftBabyApi extends BabyApi {
 
   @override
   Stream<Baby> streamBaby(String? token) {
-    return _babiesDatabase.select(_babiesDatabase.babies).watch().map(
-      (List<db.Baby> babyDataList) {
+    return _babiesDatabase.select(_babiesDatabase.babyEntities).watch().map(
+      (List<db.BabyEntity> babyDataList) {
         return babyDataList.firstOrNull?.toDomainModel() ?? Baby.empty;
       },
-    );
+    ).switchMap((baby) {
+      return _babiesDatabase
+          .watchBabySizesById(int.parse(baby.id))
+          .map((sizes) => baby.copyWith(
+                sizes: sizes.map((s) => s.toDomainModel()).toList(),
+              ));
+    });
   }
 
   @override
   Future<void> updateBirthDay(String? token, DateTime birthDay) async {
     final baby = (await _babiesDatabase.getAllBabies()).firstOrNull;
     if (baby != null) {
-      await _babiesDatabase.updateBaby(db.BabiesCompanion(
+      await _babiesDatabase.updateBaby(db.BabyEntitiesCompanion(
         id: Value(baby.id),
         birthday: Value(birthDay),
       ));
@@ -59,7 +80,7 @@ class DriftBabyApi extends BabyApi {
   Future<void> updateName(String? token, String name) async {
     final baby = (await _babiesDatabase.getAllBabies()).firstOrNull;
     if (baby != null) {
-      await _babiesDatabase.updateBaby(db.BabiesCompanion(
+      await _babiesDatabase.updateBaby(db.BabyEntitiesCompanion(
         id: Value(baby.id),
         name: Value(name),
       ));
@@ -70,7 +91,7 @@ class DriftBabyApi extends BabyApi {
   Future<void> updateNickname(String? token, String nickName) async {
     final baby = (await _babiesDatabase.getAllBabies()).firstOrNull;
     if (baby != null) {
-      final result = await _babiesDatabase.updateBaby(db.BabiesCompanion(
+      final result = await _babiesDatabase.updateBaby(db.BabyEntitiesCompanion(
         id: Value(baby.id),
         nickname: Value(nickName),
       ));

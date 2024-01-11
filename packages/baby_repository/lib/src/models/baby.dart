@@ -15,7 +15,7 @@ class Baby extends Equatable {
     this.gender = Gender.other,
   });
 
-  static Baby empty = Baby(id: '', name: '', birthday: DateTime.now());
+  static Baby empty = Baby(id: '0', name: '', birthday: DateTime.now());
 
   bool get isEmpty => name == '';
   final String id;

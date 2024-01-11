@@ -9,7 +9,7 @@ import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 part 'baby_db.g.dart';
 
-class Babies extends Table {
+class BabyEntities extends Table {
   IntColumn get id => integer().autoIncrement()();
 
   TextColumn get name => text()();
@@ -21,7 +21,21 @@ class Babies extends Table {
   TextColumn get gender => text()();
 }
 
-@DriftDatabase(tables: [Babies])
+class BabySizeEntities extends Table {
+  IntColumn get id => integer().autoIncrement()();
+
+  IntColumn get babyId => integer()();
+
+  RealColumn get headSize => real()();
+
+  RealColumn get weight => real()();
+
+  RealColumn get height => real()();
+
+  DateTimeColumn get time => dateTime()();
+}
+
+@DriftDatabase(tables: [BabyEntities, BabySizeEntities])
 class BabiesDatabase extends _$BabiesDatabase {
   BabiesDatabase() : super(_openConnection());
 
@@ -29,28 +43,46 @@ class BabiesDatabase extends _$BabiesDatabase {
   int get schemaVersion => 1;
 
   // Create
-  Future<int> upsert(BabiesCompanion baby) {
-    return into(babies).insertOnConflictUpdate(baby);
+  Future<int> upsert(BabyEntitiesCompanion baby) {
+    return into(babyEntities).insertOnConflictUpdate(baby);
   }
 
   // Read all babies
-  Future<List<Baby>> getAllBabies() {
-    return select(babies).get();
+  Future<List<BabyEntity>> getAllBabies() {
+    return select(babyEntities).get();
   }
 
   // Read a single baby by id
-  Future<Baby?> getBabyById(int id) {
-    return (select(babies)..where((b) => b.id.equals(id))).getSingleOrNull();
+  Future<BabyEntity?> getBabyById(int id) {
+    return (select(babyEntities)..where((b) => b.id.equals(id)))
+        .getSingleOrNull();
   }
 
   // Update
-  Future<bool> updateBaby(BabiesCompanion baby) {
-    return update(babies).replace(baby);
+  Future<bool> updateBaby(BabyEntitiesCompanion baby) {
+    return update(babyEntities).replace(baby);
   }
 
   // Delete
   Future<int> deleteBaby(int id) {
-    return (delete(babies)..where((b) => b.id.equals(id))).go();
+    return (delete(babyEntities)..where((b) => b.id.equals(id))).go();
+  }
+
+  Future<int> upsertBabySize(BabySizeEntitiesCompanion entity) {
+    return into(babySizeEntities).insertOnConflictUpdate(entity);
+  }
+
+  Future<List<BabySizeEntity>> getBabySizesById(int id) {
+    return (select(babySizeEntities)..where((b) => b.id.equals(id))).get();
+  }
+
+  Stream<List<BabySizeEntity>> watchBabySizesById(int id) {
+    return (select(babySizeEntities)..where((b) => b.babyId.equals(id)))
+        .watch();
+  }
+
+  Future<int> deleteBabySize(int id) {
+    return (delete(babySizeEntities)..where((b) => b.id.equals(id))).go();
   }
 }
 
