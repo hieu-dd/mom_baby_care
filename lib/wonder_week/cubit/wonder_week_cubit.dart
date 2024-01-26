@@ -14,4 +14,8 @@ class WonderWeekCubit extends Cubit<WonderWeekState> {
   void _changeBaby(Baby baby) {
     emit(WonderWeekState(baby: baby));
   }
+
+  void changeDueDate(DateTime dueDate) {
+    _babyRepository.updateDueDate(dueDate);
+  }
 }

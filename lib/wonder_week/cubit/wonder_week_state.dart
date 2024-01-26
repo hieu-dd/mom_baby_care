@@ -1,6 +1,5 @@
 import 'package:baby_repository/baby_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mom_baby_care/utils/date_time.dart';
 
 import '../wonder_week.dart';
 
@@ -11,10 +10,9 @@ class WonderWeekState extends Equatable {
 
   static WonderWeekState empty = WonderWeekState(baby: Baby.empty);
 
-  double get monthAge =>
-      DateTime.now().calculateMonthDifference(_baby.birthday);
+  double get weekAge => DateTime.now().difference(dueDate).inDays / 7;
 
-  double get weekAge => DateTime.now().difference(_baby.birthday).inDays / 7;
+  DateTime get dueDate => _baby.dueDate ?? _baby.birthday;
 
   @override
   List<Object> get props => [_baby];

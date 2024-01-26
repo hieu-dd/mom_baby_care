@@ -72,6 +72,15 @@ class RemoteBabyApi extends BabyApi {
   }
 
   @override
+  Future<void> updateDueDate(String? token, DateTime dueDate) async {
+    _checkLogin(token);
+    await _firebaseFirestore
+        .collection('babies')
+        .doc(_token)
+        .update({'dueDate': DateFormat('yyyy-MM-dd').format(dueDate)});
+  }
+
+  @override
   Future<void> updateName(String? token, String name) async {
     _checkLogin(token);
     await _firebaseFirestore

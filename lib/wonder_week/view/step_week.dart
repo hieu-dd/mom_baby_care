@@ -51,7 +51,7 @@ class _StepWeeks extends StatelessWidget {
         (element) => element.start <= step * 0.5 && element.end > step * 0.5);
     return Positioned(
       left: 16 + col * stepWidth,
-      top: row * 70.0 + 50,
+      top: row * 70.0 + 30,
       child: Container(
         width: stepWidth,
         height: 20.0,
@@ -86,7 +86,7 @@ class _StepWeeks extends StatelessWidget {
     final week = row * 7 + col;
     return Positioned(
         left: col * stepWidth + 13,
-        top: row * 70.0 + 70,
+        top: row * 70.0 + 50,
         child: Text(
           week.toInt().toString(),
         ));
@@ -97,7 +97,7 @@ class _StepWeeks extends StatelessWidget {
     final int row = currentWeek ~/ 7;
     return Positioned(
         left: (currentWeek % 7) * (width / 8),
-        top: row * 70.0 + 15,
+        top: row * 70.0,
         child: Icon(
           Icons.location_pin,
           color: Theme.of(context).colorScheme.onSurface,

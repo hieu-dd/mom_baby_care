@@ -15,6 +15,8 @@ abstract class BabyApi {
 
   Future<void> updateBirthDay(String? token, DateTime birthDay);
 
+  Future<void> updateDueDate(String? token, DateTime dueDate);
+
   Future<void> addSize(String? token, BabySize size);
 
   Future<void> deleteSize(String? token, String id);

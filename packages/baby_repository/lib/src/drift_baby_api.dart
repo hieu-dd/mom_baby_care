@@ -77,6 +77,19 @@ class DriftBabyApi extends BabyApi {
   }
 
   @override
+  Future<void> updateDueDate(String? token, DateTime dueDate) async {
+    // TODO
+    return;
+    final baby = (await _babiesDatabase.getAllBabies()).firstOrNull;
+    if (baby != null) {
+      await _babiesDatabase.updateBaby(db.BabyEntitiesCompanion(
+        id: Value(baby.id),
+        birthday: Value(dueDate),
+      ));
+    }
+  }
+
+  @override
   Future<void> updateName(String? token, String name) async {
     final baby = (await _babiesDatabase.getAllBabies()).firstOrNull;
     if (baby != null) {

@@ -31,6 +31,12 @@ class LocalBabyApi extends BabyApi {
   }
 
   @override
+  Future<void> updateDueDate(String? token, DateTime dueDate) async {
+    final newBaby = _getBaby(_sharedPreferences).copyWith(dueDate: dueDate);
+    await _saveBabyToSharedPreference(newBaby);
+  }
+
+  @override
   Future<void> updateName(String? token, String name) async {
     final newBaby = _getBaby(_sharedPreferences)..copyWith(name: name);
     await _saveBabyToSharedPreference(newBaby);

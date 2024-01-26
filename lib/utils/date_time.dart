@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 extension DateTimeEx on DateTime {
   Map<String, int> calculateTimeDifference(DateTime pastDate) {
     DateTime currentDate = this;
@@ -56,5 +58,9 @@ extension DateTimeEx on DateTime {
     return (timeDifference['years']! * 12 + timeDifference['months']!)
             .toDouble() +
         (timeDifference['days']!.toDouble() / 7);
+  }
+
+  String formatDayMonthYear() {
+    return DateFormat('yyyy-MM-dd').format(this);
   }
 }

@@ -1,10 +1,13 @@
 import 'package:baby_repository/baby_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mom_baby_care/utils/date_time.dart';
+import 'package:mom_baby_care/utils/string.dart';
 import 'package:mom_baby_care/wonder_week/cubit/wonder_week_cubit.dart';
 import 'package:mom_baby_care/wonder_week/cubit/wonder_week_state.dart';
 import 'package:mom_baby_care/wonder_week/wonder_week.dart';
 
+part '../widget/update_due_date_button.dart';
 part 'step_week.dart';
 
 class WonderWeekPage extends StatelessWidget {
@@ -28,12 +31,18 @@ class _WonderWeekPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tuần khủng hoảng'),
+        actions: [
+          _UpdateDueDateAction(selectDate: (DateTime dueDate) {
+            context.read<WonderWeekCubit>().changeDueDate(dueDate);
+          })
+        ],
       ),
       body: SingleChildScrollView(
         child: SizedBox(
           width: double.infinity,
           child: Column(
             children: [
+              const _DueDateInfo(),
               const _StepWeeks(),
               _descriptionWeek(context, true),
               const SizedBox(
@@ -78,6 +87,39 @@ class _WonderWeekPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _DueDateInfo extends StatelessWidget {
+  const _DueDateInfo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<WonderWeekCubit, WonderWeekState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: SizedBox(
+            width: double.infinity,
+            child: Row(
+              children: [
+                Text(
+                  'Dự sinh: '.hardcoded(),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                Text(
+                  state.dueDate.formatDayMonthYear(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

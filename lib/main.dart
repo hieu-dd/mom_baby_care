@@ -15,7 +15,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  const bool useRemote = false;
+  const bool useRemote = true;
 
   final babyRepository = BabyRepository(
     babyApi: useRemote

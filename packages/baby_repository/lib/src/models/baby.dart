@@ -13,6 +13,7 @@ class Baby extends Equatable {
     required this.birthday,
     this.sizes = const [],
     this.gender = Gender.other,
+    this.dueDate,
   });
 
   static Baby empty = Baby(id: '0', name: '', birthday: DateTime.now());
@@ -24,6 +25,7 @@ class Baby extends Equatable {
   final DateTime birthday;
   final List<BabySize> sizes;
   final Gender gender;
+  final DateTime? dueDate;
 
   factory Baby.fromJson(Map<String, dynamic> json) {
     return Baby(
@@ -31,6 +33,9 @@ class Baby extends Equatable {
       name: json['name'] as String,
       nickname: json['nickname'] as String?,
       birthday: DateFormat('yyyy-MM-dd').parse(json['birthDay'] as String),
+      dueDate: json['dueDate'] != null
+          ? DateFormat('yyyy-MM-dd').parse(json['dueDate'] as String)
+          : null,
       sizes: (json['sizes'] as List<dynamic>?)
               ?.map((size) => BabySize.fromJson(size as Map<String, dynamic>))
               .toList() ??
@@ -45,6 +50,8 @@ class Baby extends Equatable {
       'name': name,
       'nickname': nickname,
       'birthDay': DateFormat('yyyy-MM-dd').format(birthday),
+      'dueDate':
+          dueDate != null ? DateFormat('yyyy-MM-dd').format(dueDate!) : null,
       'sizes': sizes.map((size) => size.toJson()).toList(),
       'gender': gender.name
     };
@@ -54,6 +61,7 @@ class Baby extends Equatable {
     String? name,
     String? nickname,
     DateTime? birthday,
+    DateTime? dueDate,
     List<BabySize>? addSizes,
     List<BabySize>? sizes,
     Gender? gender,
@@ -63,11 +71,20 @@ class Baby extends Equatable {
       name: name ?? this.name,
       nickname: nickname ?? this.nickname,
       birthday: birthday ?? this.birthday,
+      dueDate: dueDate ?? this.dueDate,
       sizes: (sizes ?? [...this.sizes, ...?addSizes]).toSet().toList(),
       gender: gender ?? this.gender,
     );
   }
 
   @override
-  List<Object?> get props => [id, name, nickname, birthday, gender, sizes];
+  List<Object?> get props => [
+        id,
+        name,
+        nickname,
+        birthday,
+        dueDate,
+        gender,
+        sizes,
+      ];
 }

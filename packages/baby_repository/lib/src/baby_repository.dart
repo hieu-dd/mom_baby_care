@@ -23,6 +23,9 @@ class BabyRepository {
   Future<void> updateBirthDay(DateTime birthDay, {String? token}) =>
       _babyApi.updateBirthDay(token, birthDay);
 
+  Future<void> updateDueDate(DateTime birthDay, {String? token}) =>
+      _babyApi.updateDueDate(token, birthDay);
+
   Future<void> addSize(BabySize size, {String? token}) =>
       _babyApi.addSize(token, size);
 
